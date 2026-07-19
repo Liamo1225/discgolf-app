@@ -14,7 +14,8 @@ export function addCourse(name, length, holes) {
         id: createUUID(),
         name: name,
         length: length,
-        holes: holes
+        holes: holes,
+        bestScore: null
     }
 
     const courses = getCourses();

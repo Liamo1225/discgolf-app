@@ -1,10 +1,5 @@
-:root {
-    /* Main colors */
-    --background-color: #1a1a1a;
-    --header-color: #292934;
-    --border-color: hsl(240, 6%, 10%);
-
-    /* Menu spacing */
+.home {
+     /* Menu spacing */
     --menu-gap-color: #1a1a1a;
 
     /* Quadrant colors */
@@ -15,61 +10,28 @@
 
     /* Start button */
     --start-color: #28642a;
-    --start-hover-color: #43a047;
-
-    /* Text */
-    --text-color: white;
-    --secondary-text-color: #666;
 
     /* Sizes */
-    --corner-radius: 30px;
-}
+    --quadrant-radius: 30px;
+    --center-radius: 35px;
 
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-html,
-body,
-#root {
-    width: 100%;
-    height: 100%;
-    background-color: var(--background-color);
-}
-
-
-body {
-    font-family: sans-serif;
-    color: var(--text-color);
-}
-
-
-.home {
-    height: 100dvh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-
-/* Header */
-
 .header {
-    height: 80px;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
+    font-size: 1.2rem;
+    height: 80px;
+    
     background-color: var(--header-color);
     border-bottom: 5px solid var(--border-color);
 }
-
-
-/* Main menu */
 
 .menu {
     position: relative;
@@ -79,11 +41,8 @@ body {
 
     overflow: hidden;
 
-    background: var(--menu-gap-color);
+    background-color: var(--menu-gap-color);
 }
-
-
-/* Quadrant buttons */
 
 .quadrant {
     position: absolute;
@@ -102,64 +61,45 @@ body {
 
     gap: 10px;
 
-    transition: 0.2s;
-
     font-size: 1rem;
-
     color: var(--text-color);
 }
-
-
-/* Rounded only outer corners */
 
 .top-left {
     top: 8px;
     left: 8px;
 
-    background: var(--players-color);
-    border-radius: var(--corner-radius) 0 0 0;
+    background-color: var(--players-color);
+    border-radius: var(--quadrant-radius) 0 0 0;
 }
-
 
 .top-right {
     top: 8px;
     right: 8px;
 
-    background: var(--history-color);
-    border-radius: 0 var(--corner-radius) 0 0;
+    background-color: var(--history-color);
+    border-radius: 0 var(--quadrant-radius) 0 0;
 }
-
 
 .bottom-left {
     bottom: 8px;
     left: 8px;
 
-    background: var(--courses-color);
-    border-radius: 0 0 0 var(--corner-radius);
+    background-color: var(--courses-color);
+    border-radius: 0 0 0 var(--quadrant-radius);
 }
-
 
 .bottom-right {
     bottom: 8px;
     right: 8px;
 
-    background: var(--settings-color);
-    border-radius: 0 0 var(--corner-radius) 0;
+    background-color: var(--settings-color);
+    border-radius: 0 0 var(--quadrant-radius) 0;
 }
 
-
-.quadrant:hover {
-    filter: brightness(0.95);
-    transform: scale(1.01);
-}
-
-
-.quadrant span {
+.quadrant, .start-btn span {
     font-weight: 600;
 }
-
-
-/* Start button */
 
 .start-btn {
     position: absolute;
@@ -173,36 +113,24 @@ body {
     height: 150px;
 
     border: none;
-    border-radius: 35px;
+    border-radius: var(--center-radius);
 
     font-size: 1.2rem;
-
-    background: var(--start-color);
     color: var(--text-color);
 
+    background-color: var(--start-color);
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     cursor: pointer;
-
+    
     z-index: 5;
 
-    /* spacing around button */
     box-shadow: 0 0 0 10px var(--menu-gap-color);
-
-    transition: 0.2s;
 }
-
-
-.start-btn:hover {
-    background: var(--start-hover-color);
-    transform: translate(-50%, -50%) scale(1.05);
-}
-
-
-/* Footer */
 
 .footer {
     height: 90px;
@@ -216,18 +144,15 @@ body {
     align-items: center;
 }
 
-
 .stat {
     text-align: center;
 }
 
+.stat h2 {
+    margin-top: 4px;
+}
 
 .stat p {
     font-size: 0.9rem;
     color: var(--secondary-text-color);
-}
-
-
-.stat h2 {
-    margin-top: 4px;
 }

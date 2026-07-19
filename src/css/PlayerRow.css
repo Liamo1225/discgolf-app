@@ -1,0 +1,56 @@
+.player-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+
+    padding: 0 15px;
+    border-bottom: 3px dashed var(--player-border-color);
+}
+
+.player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.player-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.player-total {
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+    margin-left: 3px;
+}
+
+.big-player-name {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.player-score {
+    display: flex;
+    gap: 15px
+}
+
+.score-btn {
+    display: flex;
+    align-items: center;
+
+    background: none;
+    border: none;
+    color: var(--change-score-color);
+}
+
+.score-value {
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+.zero {
+    transform: translateY(-15px);
+}

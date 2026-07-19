@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
+import { getPlayerTotal } from "../data/gameData";
 import PlayerRow from "../components/PlayerRow";
+import "../css/ScoreCard.css"
 
 import {
     getGameData,
@@ -17,6 +19,12 @@ import {
 export default function Scorecard() {
 
     const [gameData, setGameData] = useState(getGameData());
+    const [playerOrder, setPlayerOrder] = useState(() =>
+        getSortedPlayerOrder(
+            gameData.players,
+            gameData.settings.handicapMode
+        )
+    );
 
     if (!gameData) {
         return <h2>No active game</h2>;
@@ -32,6 +40,39 @@ export default function Scorecard() {
         setGameData(updatedGame);
     }
 
+    function handleChangeHole(amount) {
+        const newHole = Math.min(
+            gameData.course.holes,
+            Math.max(1, gameData.currentHole + amount)
+        );
+
+        if (newHole === gameData.currentHole) return;
+
+        const updatedGame = setCurrentHole(newHole);
+
+        setPlayerOrder(
+            getSortedPlayerOrder(
+                updatedGame.players,
+                updatedGame.settings.handicapMode
+            )
+        );
+
+        setGameData(updatedGame);
+    }
+
+    function getSortedPlayerOrder(players, handicapMode) {
+        return [...players]
+            .sort((a, b) => {
+                const aTotal = getPlayerTotal(a);
+                const bTotal = getPlayerTotal(b);
+
+                return handicapMode
+                    ? (aTotal + a.handicap) - (bTotal + b.handicap)
+                    : aTotal - bTotal;
+            })
+            .map(player => player.id);
+    }
+
     const startX = useRef(0);
 
     function handlePointerDown(e) {
@@ -44,15 +85,6 @@ export default function Scorecard() {
         if (Math.abs(delta) > 60) {
             handleChangeHole(Math.sign(delta));
         }
-    }
-
-    function handleChangeHole(amount) {
-        const newHole = Math.min(
-            gameData.course.holes,
-            Math.max(1, gameData.currentHole + amount)
-        );
-
-        setGameData(setCurrentHole(newHole));
     }
 
     return (
@@ -80,10 +112,13 @@ export default function Scorecard() {
             <section className="hole-section">
 
                 <button
-                    className="prev-hole-btn"
+                    className={
+                        `change-hole-btn 
+                        ${gameData.currentHole === 1 ? "hide" : ""}`
+                    }
                     onClick={() => handleChangeHole(-1)}
                 >
-                    <ChevronCompactLeft size={42}/>
+                    <ChevronCompactLeft size={75}/>
                 </button>
 
                 <div className="hole-info">
@@ -94,26 +129,36 @@ export default function Scorecard() {
                 </div>
 
                 <button
-                    className="next-hole-btn"
+                    className={
+                        `change-hole-btn 
+                        ${gameData.currentHole === gameData.course.holes ? "hide" : ""}`
+                    }
                     onClick={() => handleChangeHole(1)}
                 >
-                    <ChevronCompactRight size={42}/>
+                    <ChevronCompactRight size={75}/>
                 </button>
 
             </section>
 
-            {gameData.players.map(player => (
+            <div className="seperator"></div>
 
-                <PlayerRow
-                    key={player.id}
-                    player={player}
-                    currentHole={gameData.currentHole}
-                    onChangeScore={handleChangeScore}
-                    gameData={gameData}
-                />
-
-            ))}
-
+            <div className="player-list">
+                {
+                    playerOrder.map(id => {
+                        const player = gameData.players.find(p => p.id === id); 
+                        
+                        return (
+                            <PlayerRow
+                                key={player.id}
+                                player={player}
+                                currentHole={gameData.currentHole}
+                                onChangeScore={handleChangeScore}
+                                gameData={gameData}
+                            />
+                        );
+                    })
+                }
+            </div>
         </div>
     );
 }

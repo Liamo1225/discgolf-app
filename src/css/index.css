@@ -1,0 +1,10 @@
+:root {
+    /* Main colors */
+    --background-color: #1a1a1a;
+    --header-color: #292934;
+    --border-color: hsl(240, 6%, 10%);
+
+    /* Text */
+    --text-color: white;
+    --secondary-text-color: #878787;
+}

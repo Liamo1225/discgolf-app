@@ -1,10 +1,11 @@
-import { getGameData } from "../data/gameData";
-import "./css/PlayerRow.css";
+import "../css/PlayerRow.css"
+import { getDistFromFirst } from "../data/gameData";
 
 import {
     PersonFill,
-    DashCircle,
-    PlusCircle
+    DashCircleFill,
+    PlusCircleFill,
+    Dash
 } from "react-bootstrap-icons";
 
 export default function PlayerRow({
@@ -33,45 +34,57 @@ export default function PlayerRow({
     return (
         <div className="player-row">
 
-            <div className="player-icon">
+            <div className="player">
 
                 <PersonFill
-                    size={30}
+                    size={40}
                     color={player.color}
                 />
 
-                <div className="player-info">
+                {
+                    gameData.settings.handicapMode
+                    ? <>
+                        <div className="player-info">
+                            <div className="player-name">
+                                {player.name}
+                            </div>
 
-                    <div className="player-name">
-                        {player.name}
-                    </div>
-
-                    <div className="player-total">
-                        {total}
-                    </div>
-
-                </div>
+                            <div className="player-total">
+                                {
+                                    `+${getDistFromFirst(player, gameData)} (${total})`
+                                }
+                            </div>
+                        </div>
+                    </>
+                    : <div className="big-player-name">
+                            {player.name}
+                     </div>                   
+                }
+                
 
             </div>
 
             <div className="player-score">
 
                 <button
-                    className="decrease-btn"
+                    className="score-btn"
                     onClick={onDecrease}
                 >
-                    <DashCircle size={28}/>
+                    <DashCircleFill size={40}/>
                 </button>
 
-                <span className="score-value">
-                    {score === 0 ? "-" : score}
-                </span>
+                {
+                    score === 0
+                    ? <span className="score-value zero">_</span>
+                    : <span className="score-value">{score}</span>
+                }
+                
 
                 <button
-                    className="increase-btn"
+                    className="score-btn"
                     onClick={onIncrease}
                 >
-                    <PlusCircle size={28}/>
+                    <PlusCircleFill size={40}/>
                 </button>
 
             </div>

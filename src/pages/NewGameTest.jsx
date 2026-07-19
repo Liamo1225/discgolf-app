@@ -11,7 +11,8 @@ export default function NewGameTest() {
             id: "course_test",
             name: "Test Course",
             length: 1429,
-            holes: 18
+            holes: 18,
+            bestScore: 15
         };
 
         const players = [
@@ -36,6 +37,63 @@ export default function NewGameTest() {
             },
             {
                 id: "player_2",
+                name: "Wilma",
+                color: "red",
+                history: [
+                    {
+                        throws: 41,
+                        distance: 612
+                    },
+                    {
+                        throws: 42,
+                        distance: 717
+                    },
+                    {
+                        throws: 37,
+                        distance: 759
+                    }
+                ]
+            },
+            {
+                id: "player_3",
+                name: "Benjamin",
+                color: "red",
+                history: [
+                    {
+                        throws: 41,
+                        distance: 612
+                    },
+                    {
+                        throws: 42,
+                        distance: 717
+                    },
+                    {
+                        throws: 37,
+                        distance: 759
+                    }
+                ]
+            },
+            {
+                id: "player_4",
+                name: "Wilma",
+                color: "red",
+                history: [
+                    {
+                        throws: 41,
+                        distance: 612
+                    },
+                    {
+                        throws: 42,
+                        distance: 717
+                    },
+                    {
+                        throws: 37,
+                        distance: 759
+                    }
+                ]
+            },
+            {
+                id: "player_5",
                 name: "Wilma",
                 color: "red",
                 history: [

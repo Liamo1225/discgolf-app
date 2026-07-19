@@ -17,7 +17,8 @@ export function createGame(course, players, settings) {
             id: course.id,
             name: course.name,
             length: course.length,
-            holes: course.holes
+            holes: course.holes,
+            bestScore: course.bestScore
         },
 
         players: players.map(player => ({
@@ -27,8 +28,7 @@ export function createGame(course, players, settings) {
 
             handicap: player.handicap ?? 0,
 
-            scores: Array(course.holes).fill(0),
-            total: 0
+            scores: Array(course.holes).fill(0)
         })),
 
         settings: {
@@ -119,4 +119,13 @@ export function updateGame(changes) {
 
 export function getPlayerTotal(player) {
     return player.scores.reduce((sum, score) => sum + score, 0);
+}
+
+export function getDistFromFirst(player, gameData) {
+    const getScore = (p) =>
+        getPlayerTotal(p) + (gameData.settings.handicapMode ? p.handicap : 0);
+
+    const best = Math.min(...gameData.players.map(getScore));
+
+    return getScore(player) - best;
 }
