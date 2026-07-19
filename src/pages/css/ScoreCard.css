@@ -1,0 +1,62 @@
+.scoreboard {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.scoreboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 20px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.scoreboard-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.hole-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.hole-info {
+    text-align: center;
+}
+
+.hole-label {
+    font-size: 28px;
+}
+
+.hole-number {
+    font-size: 52px;
+    font-weight: bold;
+}
+
+.players {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+}

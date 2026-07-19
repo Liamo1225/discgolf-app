@@ -1,4 +1,5 @@
-import "./Home.css"
+import "./css/Home.css"
+import { useNavigate } from "react-router-dom";
 
 import {
     GearFill,
@@ -9,7 +10,8 @@ import {
     ArrowRepeat,
 } from "react-bootstrap-icons";
 
-function Home() {
+export default function Home() {
+    const navigate = useNavigate();
 
     // Temporary data
     // Later replace with database/localStorage/API
@@ -25,6 +27,7 @@ function Home() {
             console.log("Resume game");
         } else {
             console.log("Start new game");
+            navigate("/new-game-test");
         }
     }
 
@@ -115,5 +118,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;
