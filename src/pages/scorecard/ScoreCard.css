@@ -52,43 +52,11 @@
     text-overflow: ellipsis;
 }
 
-.hole-section {
-    padding: 100px 0 100px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    border-bottom: 5px solid var(--border-color);
-    background-image: radial-gradient(var(--inner-color), var(--outer-color));
-}
-
 .seperator {
     min-height: 15px;
 
     background-color: var(--header-color);
     border-bottom: 5px solid var(--border-color);
-}
-
-.hole-info {
-    text-align: center;
-    transform: translateY(-15px);
-}
-
-.hole-label {
-    font-size: 1.2rem;
-    color: var(--secondary-text-color);
-}
-
-.hole-number {
-    font-size: 3.5rem;
-}
-
-.change-hole-btn {
-    background: none;
-    border: none;
-
-    color: var(--text-color);
 }
 
 .hide {

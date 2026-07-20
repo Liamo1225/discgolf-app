@@ -1,5 +1,5 @@
-import "../css/PlayerRow.css"
-import { getDistFromFirst } from "../data/gameData";
+import "./PlayerRow.css"
+import { getDistFromFirst } from "../../../data/gameData";
 
 import {
     PersonFill,

@@ -140,7 +140,7 @@ export default function NewGameTest() {
             settings
         );
 
-        navigate("/scorecard")
+        navigate("/scorecard");
     }
 
     return (

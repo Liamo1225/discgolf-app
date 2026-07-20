@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom"
-import './css/App.css'
-import Home from "./pages/Home"
-import ScoreCard from "./pages/ScoreCard"
-import NewGameTest from "./pages/NewGameTest"
+import './App.css'
+import Home from "../pages/home/Home"
+import ScoreCard from "../pages/scorecard/ScoreCard"
+import NewGameTest from "../pages/NewGameTest"
 
 function App() {
   return (
