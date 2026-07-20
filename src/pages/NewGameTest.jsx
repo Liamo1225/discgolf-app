@@ -131,7 +131,8 @@ export default function NewGameTest() {
 
         const settings = {
             showTotal: true,
-            handicapMode: true
+            handicapMode: true,
+            reorderPlayers: true
         };
 
         createGame(

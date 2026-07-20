@@ -1,5 +1,5 @@
-import { createUUID, loadData, saveData } from "./dataManager";
-import { STORAGE_KEYS } from "./keys";
+import { createUUID, loadData, saveData } from "./dataManager"
+import { STORAGE_KEYS } from "./keys"
 
 function saveGameData(gameData) {
     saveData(STORAGE_KEYS.activeGame, gameData);
@@ -17,8 +17,7 @@ export function createGame(course, players, settings) {
             id: course.id,
             name: course.name,
             length: course.length,
-            holes: course.holes,
-            bestScore: course.bestScore
+            holes: course.holes
         },
 
         players: players.map(player => ({
@@ -33,7 +32,8 @@ export function createGame(course, players, settings) {
 
         settings: {
             showTotal: settings.showTotal,
-            handicapMode: settings.handicapMode
+            handicapMode: settings.handicapMode,
+            reorderPlayers: settings.reorderPlayers
         },
 
         currentHole: 1,

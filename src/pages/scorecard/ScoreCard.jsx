@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from "react"
 
 import "./ScoreCard.css"
 
@@ -19,6 +19,7 @@ export default function Scorecard() {
     const [playerOrder, setPlayerOrder] = useState(() =>
         getSortedPlayerOrder(
             gameData.players,
+            gameData.players.map(p => p.id),
             gameData.settings.handicapMode
         )
     );
@@ -50,6 +51,7 @@ export default function Scorecard() {
         setPlayerOrder(
             getSortedPlayerOrder(
                 updatedGame.players,
+                playerOrder,
                 updatedGame.settings.handicapMode
             )
         );
@@ -57,15 +59,23 @@ export default function Scorecard() {
         setGameData(updatedGame);
     }
 
-    function getSortedPlayerOrder(players, handicapMode) {
+    function getSortedPlayerOrder(players, previousOrder, handicapMode) {
+        const previousIndex = new Map(
+            previousOrder.map((id, index) => [id, index])
+        );
+
         return [...players]
             .sort((a, b) => {
                 const aTotal = getPlayerTotal(a);
                 const bTotal = getPlayerTotal(b);
 
-                return handicapMode
+                const scoreDiff = handicapMode
                     ? (aTotal + a.handicap) - (bTotal + b.handicap)
                     : aTotal - bTotal;
+
+                if (scoreDiff !== 0) return scoreDiff;
+
+                return previousIndex.get(a.id) - previousIndex.get(b.id);
             })
             .map(player => player.id);
     }

@@ -5,7 +5,7 @@ import {
     GeoAltFill,
     PlayFill,
     ArrowRepeat,
-} from "react-bootstrap-icons";
+} from "react-bootstrap-icons"
 
 export default function MenuButtons({
     handleStartGame,

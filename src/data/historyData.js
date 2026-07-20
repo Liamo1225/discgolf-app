@@ -1,6 +1,5 @@
 import { saveData, loadData } from "./dataManager"
 import { STORAGE_KEYS } from "./keys"
-import { removeGameFromPlayers } from "./playerData";
 
 function saveHistory(history) {
     saveData(STORAGE_KEYS.history, history);
@@ -16,7 +15,6 @@ export function addGame(game) {
     const updatedHistory = [...history, game];
 
     saveHistory(updatedHistory);
-    addGameToPlayers(game);
 }
 
 export function removeGame(id) {
@@ -27,6 +25,4 @@ export function removeGame(id) {
     );
 
     saveHistory(updatedHistory);
-
-    removeGameFromPlayers(id);
 }

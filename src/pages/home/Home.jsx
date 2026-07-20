@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import "./Home.css"
 
-import MenuButtons from "./components/MenuButtons";
-import HomeStats from "./components/HomeStats";
+import MenuButtons from "./components/MenuButtons"
+import HomeStats from "./components/HomeStats"
 
-import { getGameData } from "../../data/gameData";
+import { getGameData } from "../../data/gameData"
 
 export default function Home() {
     const navigate = useNavigate();

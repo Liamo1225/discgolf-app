@@ -1,4 +1,4 @@
-import { getHistory } from "../../../data/historyData";
+import { getHistory } from "../../../data/historyData"
 
 export default function HomeStats() {
     const history = getHistory();

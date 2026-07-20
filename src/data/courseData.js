@@ -1,5 +1,5 @@
-import { saveData, loadData, createUUID } from "./dataManager";
-import { STORAGE_KEYS } from "./keys";
+import { saveData, loadData, createUUID } from "./dataManager"
+import { STORAGE_KEYS } from "./keys"
 
 function saveCourses(courses) {
     saveData(STORAGE_KEYS.courses, courses);
@@ -14,8 +14,7 @@ export function addCourse(name, length, holes) {
         id: createUUID(),
         name: name,
         length: length,
-        holes: holes,
-        bestScore: null
+        holes: holes
     }
 
     const courses = getCourses();

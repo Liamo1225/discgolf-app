@@ -1,20 +1,21 @@
-import "./HoleSelector.css";
+import "./HoleSelector.css"
 
 import {
     ChevronCompactLeft,
     ChevronCompactRight,
     FlagFill
-} from "react-bootstrap-icons";
+} from "react-bootstrap-icons"
 
 export default function HoleSelector({gameData, handleChangeHole}) {
 
     const currentHole = gameData.currentHole;
+    const startHole = gameData.course.startHole;
     const totalHoles = gameData.course.holes;
 
     const holes = [
         -1, 
         0,
-        ...Array.from({ length: totalHoles + 2 }, (_, i) => i + 1)
+        ...Array.from({ length: totalHoles + 3 }, (_, i) => i + 1)
     ];
 
     return (
@@ -29,7 +30,9 @@ export default function HoleSelector({gameData, handleChangeHole}) {
 
             <div className="hole-info">
 
-                <h3 className="hole-label">Hole</h3>
+                <h3 className="hole-label">
+                    {currentHole === totalHoles + 1 ? "Sum" : "Hole"}
+                </h3>
     
                 <div className="hole-numbers">
                     {

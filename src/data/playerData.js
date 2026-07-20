@@ -1,5 +1,5 @@
-import { saveData, loadData, createUUID } from "./dataManager";
-import { STORAGE_KEYS } from "./keys";
+import { saveData, loadData, createUUID } from "./dataManager"
+import { STORAGE_KEYS } from "./keys"
 
 function savePlayers(players) {
     saveData(STORAGE_KEYS.players, players);
@@ -13,8 +13,7 @@ export function addPlayer(name, color) {
     const player = {
         id: createUUID(),
         name: name,
-        color: color,
-        history: []
+        color: color
     }
 
     const players = getPlayers();
@@ -46,14 +45,19 @@ export function updatePlayer(id, changes) {
 }
 
 export function calcHandicap(player, games = 5) {
-    const recentGames = player.history.slice(-games);
+    const recentGames = getHistory()
+        .filter(game => game.players.some(p => p.id === player.id))
+        .sort((a, b) => new Date(b.ended).getTime() - new Date(a.ended).getTime())
+        .slice(-games);
 
     let throws = 0;
     let meters = 0;
 
     for (const game of recentGames) {
-        throws += game.throws;
-        meters += game.distance;
+        const score = game.players.find(p => p.id === player.id).score;
+
+        throws += score.reduce((sum, holeScore) => sum + holeScore, 0);
+        meters += game.course.length;
     }
 
     if (meters === 0) {
@@ -61,45 +65,4 @@ export function calcHandicap(player, games = 5) {
     }
 
     return throws / meters;
-}
-
-export function removeGameFromPlayers(id) {
-    const players = getPlayers();
-
-    const updatedPlayers = players.map(player => ({
-        ...player,
-        history: player.history.filter(
-            game => game.id !== id
-        )
-    }));
-
-    savePlayers(updatedPlayers)
-}
-
-export function addGameToPlayers(game) {
-    const players = getPlayers();
-
-    const updatedPlayers = players.map(player => {
-        const gamePlayer = game.players.find(
-            p => p.id === player.id
-        );
-
-        if (!gamePlayer) {
-            return;
-        }
-
-        return {
-            ...player,
-            history: [
-                ...player.history,
-                {
-                    roundId: game.id,
-                    throws: gamePlayer.total,
-                    length: game.course.length
-                }
-            ]
-        };
-    });
-
-    savePlayers(updatedPlayers);
 }
