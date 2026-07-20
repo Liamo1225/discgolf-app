@@ -8,3 +8,24 @@
     --text-color: white;
     --secondary-text-color: #878787;
 }
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--header-color);
+    color: var(--text-color);
+    font-family: sans-serif;
+}

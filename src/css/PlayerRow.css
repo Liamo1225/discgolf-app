@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 90px;
+    height: 80px;
 
     padding: 0 15px;
     border-bottom: 3px dashed var(--player-border-color);

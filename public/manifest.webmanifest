@@ -3,6 +3,7 @@
   "short_name": "Discgolf App",
   "start_url": "/discgolf-app/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
