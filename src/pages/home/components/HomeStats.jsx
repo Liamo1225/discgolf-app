@@ -1,4 +1,4 @@
-import { getHistory } from "../../../data/historyData"
+import { getHistory } from "../../../data/history"
 
 export default function HomeStats() {
     const history = getHistory();
@@ -24,7 +24,11 @@ export default function HomeStats() {
                 </p>
 
                 <h2>
-                    {history.length > 0 ? history[-1].endend : "?"}
+                    {
+                        history.length > 0
+                        ? Math.floor((Date.now() - new Date(history.at(-1).date)) / (1000 * 60 * 60 * 24)) + "d ago"
+                        : "?"
+                    }
                 </h2>
             </div>
         </footer>

@@ -1,29 +1,35 @@
-import "./HoleSelector.css"
+import "./HoleSelector.css";
 
 import {
     ChevronCompactLeft,
     ChevronCompactRight,
     FlagFill
-} from "react-bootstrap-icons"
+} from "react-bootstrap-icons";
 
-export default function HoleSelector({gameData, handleChangeHole}) {
+import { getLayout } from "../../../data/course";
 
-    const currentHole = gameData.currentHole;
-    const startHole = gameData.course.startHole;
-    const totalHoles = gameData.course.holes;
+function getHoleContent(hole, totalHoles) {
+    if (hole >= 1 && hole <= totalHoles)
+        return hole;
 
-    const holes = [
-        -1, 
-        0,
-        ...Array.from({ length: totalHoles + 3 }, (_, i) => i + 1)
-    ];
+    if (hole === totalHoles + 1)
+        return <FlagFill size={40} />;
+    
+    return null;
+}
+
+export default function HoleSelector({game, onChangeHole}) {
+    const totalHoles = getLayout(game.courseId, game.layoutId).holes;
+    const currentHole = game.currentHole;
+
+    const holes = Array.from({ length: totalHoles + 5 }, (_, i) => i - 1);
 
     return (
         <section className="hole-section">
 
             <button
                 className={`change-hole-btn ${currentHole === 1 ? "hide" : ""}`}
-                onClick={() => handleChangeHole(-1)}
+                onClick={() => onChangeHole(-1)}
             >
                 <ChevronCompactLeft size={75}/>
             </button>
@@ -37,17 +43,20 @@ export default function HoleSelector({gameData, handleChangeHole}) {
                 <div className="hole-numbers">
                     {
                         holes.map(hole => {
-                            const offset = currentHole - hole;
-                            const hidden = Math.abs(offset) > 2;
+                            const distance = Math.abs(currentHole - hole);
+
+                            const className = [
+                                "hole-number",
+                                distance === 0 && "active",
+                                distance === 1 && "near",
+                                distance > 2 && "far"
+                            ]
+                                .filter(Boolean)
+                                .join(" ");
 
                             return (
-                                <span
-                                    key={hole}
-                                    className={`hole-number ${
-                                        offset === 0 ? "active" : Math.abs(offset) === 1 ? "near" : hidden ? "far" : ""
-                                    }`}
-                                >
-                                    {hole >= 1 && hole <= totalHoles ? hole : hole === totalHoles + 1 ? <FlagFill size={40} /> : ""}
+                                <span key={hole} className={className}>
+                                    {getHoleContent(hole, totalHoles)}
                                 </span>
                             );
                         })
@@ -57,7 +66,7 @@ export default function HoleSelector({gameData, handleChangeHole}) {
 
             <button
                 className={`change-hole-btn ${currentHole === totalHoles + 1 ? "hide" : ""}`}
-                onClick={() => handleChangeHole(1)}
+                onClick={() => onChangeHole(1)}
             >
                 <ChevronCompactRight size={75}/>
             </button>

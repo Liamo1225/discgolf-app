@@ -1,25 +1,11 @@
-import { useNavigate } from "react-router-dom"
-import "./Home.css"
+import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
-import MenuButtons from "./components/MenuButtons"
-import HomeStats from "./components/HomeStats"
-
-import { getGameData } from "../../data/gameData"
+import MenuButtons from "./components/MenuButtons";
+import HomeStats from "./components/HomeStats";
 
 export default function Home() {
     const navigate = useNavigate();
-
-    const ongoingGame = getGameData() ? true : false;
-
-    function handleStartGame() {
-        if (ongoingGame) {
-            console.log("Resume game");
-            navigate("/scorecard");
-        } else {
-            console.log("Start new game");
-            navigate("/new-game-test");
-        }
-    }
 
     return (
         <div className="home">
@@ -30,12 +16,7 @@ export default function Home() {
 
 
             <main className="menu">
-
-                <MenuButtons
-                    handleStartGame={handleStartGame}
-                    ongoingGame={ongoingGame}
-                />
-
+                <MenuButtons />
             </main>
 
             <HomeStats />

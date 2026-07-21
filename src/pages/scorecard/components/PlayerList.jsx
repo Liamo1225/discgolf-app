@@ -1,24 +1,21 @@
+import { motion } from "framer-motion";
 
-import { motion } from "framer-motion"
+import PlayerRow from "./PlayerRow";
+import Summary from "./Summary";
 
-import PlayerRow from "./PlayerRow"
-import Summary from "./Summary"
+import { getLayout } from "../../../data/course";
 
-import { BoxArrowDown } from "react-bootstrap-icons"
+export default function PlayerList({ game, onChangeScore }) {
+    const totalHoles = getLayout(game.courseId, game.layoutId).holes; 
 
-export default function PlayerList({gameData, playerOrder, handleChangeScore}) {
-    if (gameData.currentHole === gameData.course.holes + 1) {
+    if (game.currentHole === totalHoles + 1) {
         return <Summary />
     }
-
-    const playersToRender = gameData.settings.reorderPlayers && gameData.settings.showTotal
-        ? playerOrder.map(id => gameData.players.find(p => p.id === id)).filter(Boolean)
-        : gameData.players;
 
     return (
         <div className="player-list">
             {
-                playersToRender.map(player => (
+                game.players.map(player => (
                     <motion.div
                         key={player.id}
                         layout
@@ -30,10 +27,9 @@ export default function PlayerList({gameData, playerOrder, handleChangeScore}) {
                         }}
                     >
                         <PlayerRow
-                            player={player}
-                            currentHole={gameData.currentHole}
-                            onChangeScore={handleChangeScore}
-                            gameData={gameData}
+                            playerId={player.id}
+                            game={game}
+                            onChangeScore={onChangeScore}
                         />
                     </motion.div>  
                 ))

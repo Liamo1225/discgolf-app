@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import {
     GearFill,
     PeopleFill,
@@ -7,17 +9,19 @@ import {
     ArrowRepeat,
 } from "react-bootstrap-icons"
 
-export default function MenuButtons({
-    handleStartGame,
-    ongoingGame
-}) {
+import { getActiveGame } from "../../../data/activeGame";
+
+import GenTestData from "../../../data/testData";
+
+export default function MenuButtons() {
+    const navigate = useNavigate();
 
     const menuButtons = [
         {
             className: "top-left",
             icon: <PeopleFill size={42} />,
             label: "Players",
-            action: () => console.log("Open players")
+            action: () => GenTestData()
         },
         {
             className: "top-right",
@@ -39,6 +43,18 @@ export default function MenuButtons({
         }
     ];
 
+    const ongoingGame = getActiveGame() ? true : false;
+
+    function onStartGame() {
+        if (ongoingGame) {
+            console.log("Resume game");
+            navigate("/scorecard");
+        } else {
+            console.log("Start new game");
+            navigate("/new-game-test");
+        }
+    }
+
     return (
         <>
             {menuButtons.map((button, index) => (
@@ -54,7 +70,7 @@ export default function MenuButtons({
 
             <button
                 className="start-btn"
-                onClick={handleStartGame}
+                onClick={onStartGame}
             >
                 {ongoingGame ? (
                     <>

@@ -1,96 +1,53 @@
-import { useState, useRef } from "react"
+import { useRef, useState } from "react";
 
-import "./ScoreCard.css"
+import "./ScoreCard.css";
 
 import ScoreHeader from "./components/ScoreHeader";
-import HoleSelector from "./components/HoleSelector"
+import HoleSelector from "./components/HoleSelector";
 import PlayerList from "./components/PlayerList";
 
 import {
-    getGameData,
-    getPlayerTotal,
-    changePlayerScore,
-    setCurrentHole
-} from "../../data/gameData";
+    changeHole,
+    changeScore,
+    getActiveGame,
+    getTotal
+} from "../../data/activeGame";
+
+const SWIPE_THRESHOLE = 60;
 
 export default function Scorecard() {
-
-    const [gameData, setGameData] = useState(getGameData());
-    const [playerOrder, setPlayerOrder] = useState(() =>
-        getSortedPlayerOrder(
-            gameData.players,
-            gameData.players.map(p => p.id),
-            gameData.settings.handicapMode
-        )
-    );
+    const [gameData, setGameData] = useState(getActiveGame());
+    const startX = useRef(0);
 
     if (!gameData) {
         return <h2>No active game</h2>;
     }
 
-    function handleChangeScore(playerId, amount) {
-        const updatedGame = changePlayerScore(
-            playerId,
-            gameData.currentHole,
-            amount
-        );
+    function onChangeHole(amount) {
+        const updatedGame = changeHole(amount);
 
-        setGameData(updatedGame);
+        if (updatedGame) {
+            setGameData(updatedGame)
+        }
     }
 
-    function handleChangeHole(amount) {
-        const newHole = Math.min(
-            gameData.course.holes + 1,
-            Math.max(1, gameData.currentHole + amount)
-        );
+    function onChangeScore(playerId, amount) {
+        const updatedGame = changeScore(playerId, gameData.currentHole, amount);
 
-        if (newHole === gameData.currentHole) return;
-
-        const updatedGame = setCurrentHole(newHole);
-
-        setPlayerOrder(
-            getSortedPlayerOrder(
-                updatedGame.players,
-                playerOrder,
-                updatedGame.settings.handicapMode
-            )
-        );
-
-        setGameData(updatedGame);
+        if (updatedGame) {
+            setGameData(updatedGame);
+        }
     }
 
-    function getSortedPlayerOrder(players, previousOrder, handicapMode) {
-        const previousIndex = new Map(
-            previousOrder.map((id, index) => [id, index])
-        );
-
-        return [...players]
-            .sort((a, b) => {
-                const aTotal = getPlayerTotal(a);
-                const bTotal = getPlayerTotal(b);
-
-                const scoreDiff = handicapMode
-                    ? (aTotal + a.handicap) - (bTotal + b.handicap)
-                    : aTotal - bTotal;
-
-                if (scoreDiff !== 0) return scoreDiff;
-
-                return previousIndex.get(a.id) - previousIndex.get(b.id);
-            })
-            .map(player => player.id);
+    function handlePointerDown(event) {
+        startX.current = event.clientX;
     }
 
-    const startX = useRef(0);
+    function handlePointerUp(event) {
+        const delta = startX.current - event.clientX;
 
-    function handlePointerDown(e) {
-        startX.current = e.clientX;
-    }
-
-    function handlePointerUp(e) {
-        const delta = startX.current - e.clientX;
-
-        if (Math.abs(delta) > 60) {
-            handleChangeHole(Math.sign(delta));
+        if (Math.abs(delta) >= SWIPE_THRESHOLE) {
+            onChangeHole(Math.sign(delta));
         }
     }
 
@@ -100,16 +57,18 @@ export default function Scorecard() {
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
         >
-            <ScoreHeader courseName={gameData.course.name}/>
+            <ScoreHeader courseId={gameData.courseId}/>
 
-            <HoleSelector gameData={gameData} handleChangeHole={handleChangeHole}/>
+            <HoleSelector
+                game={gameData}
+                onChangeHole={onChangeHole}
+            />
 
             <div className="seperator"></div>
 
-            <PlayerList
-                gameData={gameData}
-                playerOrder={playerOrder}
-                handleChangeScore={handleChangeScore}
+            <PlayerList 
+                game={gameData}
+                onChangeScore={onChangeScore}
             />
         </div>
     );
