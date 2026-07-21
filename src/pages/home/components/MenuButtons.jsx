@@ -9,7 +9,7 @@ import {
     ArrowRepeat,
 } from "react-bootstrap-icons"
 
-import { getActiveGame } from "../../../data/activeGame";
+import { getActiveRound } from "../../../data/activeRound";
 
 import GenTestData from "../../../data/testData";
 
@@ -21,13 +21,13 @@ export default function MenuButtons() {
             className: "top-left",
             icon: <PeopleFill size={42} />,
             label: "Players",
-            action: () => GenTestData()
+            action: () => console.log("Open players")
         },
         {
             className: "top-right",
             icon: <ClockHistory size={42} />,
             label: "History",
-            action: () => console.log("Open history")
+            action: () => localStorage.clear()
         },
         {
             className: "bottom-left",
@@ -43,15 +43,16 @@ export default function MenuButtons() {
         }
     ];
 
-    const ongoingGame = getActiveGame() ? true : false;
+    const ongoingRound = getActiveRound() ? true : false;
 
-    function onStartGame() {
-        if (ongoingGame) {
-            console.log("Resume game");
+    function onStartRound() {
+        if (ongoingRound) {
+            console.log("Resume round");
             navigate("/scorecard");
         } else {
-            console.log("Start new game");
-            navigate("/new-game-test");
+            console.log("Start new round");
+            GenTestData();
+            navigate("/scorecard");
         }
     }
 
@@ -70,9 +71,9 @@ export default function MenuButtons() {
 
             <button
                 className="start-btn"
-                onClick={onStartGame}
+                onClick={onStartRound}
             >
-                {ongoingGame ? (
+                {ongoingRound ? (
                     <>
                         <ArrowRepeat size={50} />
                         <span>Resume</span>

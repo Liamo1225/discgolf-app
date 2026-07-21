@@ -3,7 +3,7 @@ import { get, set } from "./storage";
 const KEY = "settings";
 
 const DEFAULT_SETTINGS = {
-    defaultNewGame: {
+    defaultNewRound: {
         showTotal: true,
         handicapMode: true,
         playerOrder: "total"

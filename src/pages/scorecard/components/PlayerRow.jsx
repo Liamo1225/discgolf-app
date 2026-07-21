@@ -1,6 +1,6 @@
 import "./PlayerRow.css";
 
-import { getScore, getScoreOffset, getTotal } from "../../../data/activeGame";
+import { getScore, getScoreOffset, getTotal } from "../../../data/activeRound";
 import { getPlayer } from "../../../data/players";
 
 import {
@@ -10,12 +10,12 @@ import {
     Dash
 } from "react-bootstrap-icons";
 
-export default function PlayerRow({ playerId, game, onChangeScore }) {
+export default function PlayerRow({ playerId, round, onChangeScore }) {
     const player = getPlayer(playerId);
-    const gamePlayer = game.players.find(player => player.id === playerId);
+    const roundPlayer = round.players.find(player => player.id === playerId);
 
-    const score = getScore(playerId, game.currentHole);
-    const total = getTotal(playerId) + (game.gameSettings.handicapMode ? gamePlayer.handicap : 0);
+    const score = getScore(playerId, round.currentHole);
+    const total = getTotal(playerId) + (round.roundSettings.handicapMode ? roundPlayer.handicap : 0);
 
     return (
         <div className="player-row">
@@ -27,7 +27,7 @@ export default function PlayerRow({ playerId, game, onChangeScore }) {
                 />
 
                 {
-                    game.gameSettings.handicapMode ? (
+                    round.roundSettings.handicapMode ? (
                         <div className="player-info">
                             <div className="player-name">
                                 {player.name}

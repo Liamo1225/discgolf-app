@@ -9,33 +9,33 @@ import PlayerList from "./components/PlayerList";
 import {
     changeHole,
     changeScore,
-    getActiveGame,
+    getActiveRound,
     getTotal
-} from "../../data/activeGame";
+} from "../../data/activeRound";
 
 const SWIPE_THRESHOLE = 60;
 
 export default function Scorecard() {
-    const [gameData, setGameData] = useState(getActiveGame());
+    const [roundData, setRoundData] = useState(getActiveRound());
     const startX = useRef(0);
 
-    if (!gameData) {
-        return <h2>No active game</h2>;
+    if (!roundData) {
+        return <h2>No active round</h2>;
     }
 
     function onChangeHole(amount) {
-        const updatedGame = changeHole(amount);
+        const updatedRound = changeHole(amount);
 
-        if (updatedGame) {
-            setGameData(updatedGame)
+        if (updatedRound) {
+            setRoundData(updatedRound)
         }
     }
 
     function onChangeScore(playerId, amount) {
-        const updatedGame = changeScore(playerId, gameData.currentHole, amount);
+        const updatedRound = changeScore(playerId, roundData.currentHole, amount);
 
-        if (updatedGame) {
-            setGameData(updatedGame);
+        if (updatedRound) {
+            setRoundData(updatedRound);
         }
     }
 
@@ -57,17 +57,17 @@ export default function Scorecard() {
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
         >
-            <ScoreHeader courseId={gameData.courseId}/>
+            <ScoreHeader courseId={roundData.courseId}/>
 
             <HoleSelector
-                game={gameData}
+                round={roundData}
                 onChangeHole={onChangeHole}
             />
 
             <div className="seperator"></div>
 
             <PlayerList 
-                game={gameData}
+                round={roundData}
                 onChangeScore={onChangeScore}
             />
         </div>

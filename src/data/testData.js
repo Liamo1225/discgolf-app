@@ -1,4 +1,4 @@
-import { startGame } from "./activeGame";
+import { startRound } from "./activeRound";
 import { addCourse, addLayout } from "./course";
 import { addPlayer } from "./players";
 
@@ -15,5 +15,5 @@ export default function GenTestData() {
     const course = addCourse("Test Course");
     const layout = addLayout(course.id, "Lay1", 1000, 18);
 
-    startGame(course.id, layout.id, players);
+    startRound(course.id, layout.id, players);
 }

@@ -5,7 +5,7 @@ const DEFAULT_DB = {
     courses: [],
     history: [],
     settings: {},
-    activeGame: null
+    activeRound: null
 }
 
 // ----- Data managing -----

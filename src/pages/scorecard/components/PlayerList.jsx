@@ -5,17 +5,17 @@ import Summary from "./Summary";
 
 import { getLayout } from "../../../data/course";
 
-export default function PlayerList({ game, onChangeScore }) {
-    const totalHoles = getLayout(game.courseId, game.layoutId).holes; 
+export default function PlayerList({ round, onChangeScore }) {
+    const totalHoles = getLayout(round.courseId, round.layoutId).holes; 
 
-    if (game.currentHole === totalHoles + 1) {
+    if (round.currentHole === totalHoles + 1) {
         return <Summary />
     }
 
     return (
         <div className="player-list">
             {
-                game.players.map(player => (
+                round.players.map(player => (
                     <motion.div
                         key={player.id}
                         layout
@@ -28,7 +28,7 @@ export default function PlayerList({ game, onChangeScore }) {
                     >
                         <PlayerRow
                             playerId={player.id}
-                            game={game}
+                            round={round}
                             onChangeScore={onChangeScore}
                         />
                     </motion.div>  

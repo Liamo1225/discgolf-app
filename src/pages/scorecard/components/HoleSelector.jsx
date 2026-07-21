@@ -18,9 +18,9 @@ function getHoleContent(hole, totalHoles) {
     return null;
 }
 
-export default function HoleSelector({game, onChangeHole}) {
-    const totalHoles = getLayout(game.courseId, game.layoutId).holes;
-    const currentHole = game.currentHole;
+export default function HoleSelector({ round, onChangeHole }) {
+    const totalHoles = getLayout(round.courseId, round.layoutId).holes;
+    const currentHole = round.currentHole;
 
     const holes = Array.from({ length: totalHoles + 5 }, (_, i) => i - 1);
 

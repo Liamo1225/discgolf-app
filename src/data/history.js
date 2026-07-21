@@ -11,38 +11,38 @@ export function getHistory() {
     return get(KEY);
 }
 
-export function getHistoryGame(id) {
-    return getHistory().find(game => game.id === id);
+export function getHistoryRound(id) {
+    return getHistory().find(round => round.id === id);
 }
 
 export function historyExists(id) {
-    return getHistoryGame(id) !== undefined;
+    return getHistoryRound(id) !== undefined;
 }
 
 // ----- History management -----
 
-export function addHistory(game) {
+export function addHistory(round) {
     const history = getHistory();
 
-    set(KEY, [...history, game]);
+    set(KEY, [...history, round]);
 }
 
 export function deleteHistory(id) {
     const history = getHistory();
 
-    set(KEY, history.fiter(game => game.id !== id));
+    set(KEY, history.fiter(round => round.id !== id));
 }
 
 // ----- Convertion -----
 
-export function convertActiveToHistory(activeGame) {
-    const course = getCourse(activeGame.courseId);
-    const layout = getLayout(activeGame.courseId, activeGame.layoutId);
+export function convertActiveToHistory(activeRound) {
+    const course = getCourse(activeRound.courseId);
+    const layout = getLayout(activeRound.courseId, activeRound.layoutId);
 
     const players = getPlayers();
 
     return {
-        id: activeGame.id,
+        id: activeRound.id,
 
         course: {
             id: course.id,
@@ -53,24 +53,24 @@ export function convertActiveToHistory(activeGame) {
             holes: layout.holes
         },
 
-        players: activeGame.players.map(gamePlayer => {
+        players: activeRound.players.map(roundPlayer => {
             const player = players.find(
-                p => p.id === gamePlayer.id
+                p => p.id === roundPlayer.id
             );
 
             return {
                 id: player.id,
                 name: player.name,
                 color: player.color,
-                scores: gamePlayer.scores,
-                handicap: gamePlayer.handicap
+                scores: roundPlayer.scores,
+                handicap: roundPlayer.handicap
             }
         }),
 
         date: Date.now(),
 
         durationMin: Math.round(
-            (Date.now() - activeGame.started) / 60000
+            (Date.now() - activeRound.started) / 60000
         )
     }
 }

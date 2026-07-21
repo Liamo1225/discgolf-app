@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom"
 import { getCourse } from "../../../data/course";
 
 import {
@@ -6,8 +5,11 @@ import {
     ThreeDots
 } from "react-bootstrap-icons";
 
+import { useModal } from "../../../main/modal/ModalContext";
+import ExitModal from "../../../main/modal/windows/ExitModal";
+
 export default function ScoreHeader({courseId}) {
-    const navigate = useNavigate();
+    const { openModal, closeModal } = useModal();
 
     const courseName = getCourse(courseId)?.name ?? "Unknown Course";
 
@@ -15,7 +17,7 @@ export default function ScoreHeader({courseId}) {
         <header className="header">
             <button
                 className="exit-btn"
-                onClick={() => navigate("/")}
+                onClick={() => openModal(<ExitModal closeModal={closeModal}/>)}
             >
                 <BoxArrowLeft size={42}/>
             </button>
