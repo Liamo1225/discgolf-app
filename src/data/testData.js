@@ -13,7 +13,7 @@ export default function GenTestData() {
     players.push(addPlayer("Pappa", "#683406").id);
 
     const course = addCourse("Test Course");
-    const layout = addLayout(course.id, "Lay1", 1000, 18);
+    const layout = addLayout(course.id, "Lay1", 1000, 9);
 
     startRound(course.id, layout.id, players);
 }

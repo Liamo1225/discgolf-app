@@ -21,7 +21,7 @@
     font-weight: 500;
 }
 
-.player-total {
+.player-secondary-info {
     font-size: 0.9rem;
     color: var(--secondary-text-color);
     margin-left: 3px;

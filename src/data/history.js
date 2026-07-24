@@ -1,7 +1,8 @@
-import { act } from "react";
 import { getCourse, getLayout } from "./course";
 import { get, set } from "./storage";
-import { getPlayer } from "./players";
+import { getPlayers } from "./players";
+import { getTotal } from "./activeRound";
+import { BorderStyle } from "react-bootstrap-icons";
 
 const KEY = "history";
 
@@ -33,7 +34,7 @@ export function deleteHistory(id) {
     set(KEY, history.fiter(round => round.id !== id));
 }
 
-// ----- Convertion -----
+// ----- Helpers -----
 
 export function convertActiveToHistory(activeRound) {
     const course = getCourse(activeRound.courseId);
@@ -49,7 +50,7 @@ export function convertActiveToHistory(activeRound) {
             name: course.name,
             layoutId: layout.id,
             layoutName: layout.name,
-            length: layout.lenght,
+            length: layout.length,
             holes: layout.holes
         },
 
@@ -73,4 +74,63 @@ export function convertActiveToHistory(activeRound) {
             (Date.now() - activeRound.started) / 60000
         )
     }
+}
+
+// ----- Player stats -----
+
+const playerStatsCache = new Map();
+
+export function getPlayerStats(playerId, courseId, layoutId) {
+    const key = `${playerId}-${courseId}-${layoutId}`;
+
+    if (playerStatsCache.has(key))
+        return playerStatsCache.get(key);
+
+    const stats = calculatePlayerStats(playerId, courseId, layoutId);
+
+    playerStatsCache.set(key, stats);
+
+    return stats;
+}
+
+export function clearPlayerStatsCache() {
+    playerStatsCache.clear();
+}
+
+function calculatePlayerStats(playerId, courseId, layoutId) {
+    const rounds = getHistory().filter(round =>
+        round.course.id === courseId &&
+        round.course.layoutId === layoutId
+    );
+
+    let bestRound = null;
+    let bestHoleScores = [];
+
+    rounds.forEach(round => {
+        const player = round.players.find(
+            player => player.id === playerId
+        );
+
+        if (!player) return;
+
+        const total = getTotal(player.scores);
+
+        if (!bestRound || total < bestRound.total) {
+            bestRound = {
+                total,
+                scores: player.scores
+            };
+        }
+
+        player.scores.forEach((score, index) => {
+            if (bestHoleScores[index] === undefined || score < bestHoleScores[index]) {
+                bestHoleScores[index] = score;
+            }
+        });
+    });
+
+    return {
+        bestRound,
+        bestHoleScores
+    };
 }

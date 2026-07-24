@@ -27,7 +27,7 @@ export default function MenuButtons() {
             className: "top-right",
             icon: <ClockHistory size={42} />,
             label: "History",
-            action: () => localStorage.clear()
+            action: () => navigate("/history")
         },
         {
             className: "bottom-left",
@@ -73,17 +73,19 @@ export default function MenuButtons() {
                 className="start-btn"
                 onClick={onStartRound}
             >
-                {ongoingRound ? (
-                    <>
-                        <ArrowRepeat size={50} />
-                        <span>Resume</span>
-                    </>
-                ) : (
-                    <>
-                        <PlayFill size={50} />
-                        <span>Start</span>
-                    </>
-                )}
+                {
+                    ongoingRound ? (
+                        <>
+                            <ArrowRepeat size={50} />
+                            <span>Resume</span>
+                        </>
+                    ) : (
+                        <>
+                            <PlayFill size={50} />
+                            <span>Start</span>
+                        </>
+                    )
+                }
             </button>
         </>
     );

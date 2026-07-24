@@ -72,5 +72,5 @@ export default function HoleSelector({ round, onChangeHole }) {
             </button>
 
         </section>
-    )
+    );
 }

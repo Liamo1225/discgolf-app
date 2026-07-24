@@ -91,20 +91,30 @@ export function getScore(playerId, hole) {
     return player?.scores[hole - 1] ?? 0;
 }
 
-export function getTotal(playerId) {
-    const round = getActiveRound();
-
-    const player = round.players.find(player => player.id === playerId);
-
-    return player.scores.reduce((sum, score) => sum + score, 0);
+export function getTotal(scores) {
+    return scores.reduce((sum, score) => sum + score, 0);
 }
 
-export function getScoreOffset(playerId) {
+export function getScoreOffset(playerId, useHandicap = false) {
     const round = getActiveRound();
 
-    const best = Math.min(...round.players.map(player => getTotal(player.id)));
+    const getPlayerTotal = (player) => {
+        const total = getTotal(player.scores);
 
-    return getTotal(playerId) - best;
+        return useHandicap
+            ? total + player.handicap
+            : total;
+    };
+
+    const player = round.players.find(
+        player => player.id === playerId
+    );
+
+    const best = Math.min(
+        ...round.players.map(getPlayerTotal)
+    );
+
+    return getPlayerTotal(player) - best;
 }
 
 // ----- Hole navigation -----
@@ -138,8 +148,8 @@ function reorderPlayers(round) {
     if (round.roundSettings.playerOrder === "static") return;
 
     const updatedOrder = round.players.sort((a, b) => {
-        const aTotal = getTotal(a.id);
-        const bTotal = getTotal(b.id);
+        const aTotal = getTotal(a.scores);
+        const bTotal = getTotal(b.scores);
 
         if (round.roundSettings.handicapMode) {
             return (aTotal + a.handicap) - (bTotal + b.handicap);

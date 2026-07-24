@@ -27,7 +27,7 @@ export default function Scorecard() {
         const updatedRound = changeHole(amount);
 
         if (updatedRound) {
-            setRoundData(updatedRound)
+            setRoundData(updatedRound);
         }
     }
 

@@ -53,3 +53,6 @@ export function deletePlayer(id) {
 
     set(KEY, players.filter(player => player.id !== id));
 }
+
+// ----- Stats -----
+

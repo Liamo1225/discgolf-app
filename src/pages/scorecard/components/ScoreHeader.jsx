@@ -1,15 +1,18 @@
+import { useNavigate } from "react-router-dom";
+import { useModal } from "../../../main/modal/ModalContext";
+
 import { getCourse } from "../../../data/course";
+import ScorecardSettings from "../../../main/modal/windows/ScorecardSettings";
 
 import {
     BoxArrowLeft,
     ThreeDots
 } from "react-bootstrap-icons";
 
-import { useModal } from "../../../main/modal/ModalContext";
-import ExitModal from "../../../main/modal/windows/ExitModal";
-
 export default function ScoreHeader({courseId}) {
-    const { openModal, closeModal } = useModal();
+    const navigate = useNavigate();
+
+    const { openModal } = useModal();
 
     const courseName = getCourse(courseId)?.name ?? "Unknown Course";
 
@@ -17,7 +20,7 @@ export default function ScoreHeader({courseId}) {
         <header className="header">
             <button
                 className="exit-btn"
-                onClick={() => openModal(<ExitModal closeModal={closeModal}/>)}
+                onClick={() => navigate("/")}
             >
                 <BoxArrowLeft size={42}/>
             </button>
@@ -26,9 +29,9 @@ export default function ScoreHeader({courseId}) {
 
             <button
                 className="settings-btn"
-                onClick={() => {}}
+                onClick={() => openModal(<ScorecardSettings />)}
             >
-                <ThreeDots size={42}/>
+                <ThreeDots size={42}/>★
             </button>
         </header>
     );
