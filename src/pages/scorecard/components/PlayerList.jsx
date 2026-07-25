@@ -18,7 +18,7 @@ export default function PlayerList({ round, onChangeScore }) {
                         }}
                     >
                         <PlayerRow
-                            playerId={player.id}
+                            player={player}
                             round={round}
                             onChangeScore={onChangeScore}
                         />

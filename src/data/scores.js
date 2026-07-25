@@ -1,7 +1,6 @@
-import {
-    getActiveRound,
-    setActiveRound
-} from "./activeRound";
+import { SecondaryInfo } from "./settings";
+import { getActiveRound, setActiveRound } from "./activeRound";
+import { getPlayerStats } from "./stats";
 
 // ----- Scores -----
 
@@ -31,18 +30,12 @@ export function changeScore(playerId, hole, score) {
     return updatedRound;
 }
 
-export function getScore(playerId, hole) {
-    const round = getActiveRound();
-
-    const player = round.players.find(
-        player => player.id === playerId
-    );
-
-    return player?.scores[hole - 1] ?? 0;
-}
-
-export function getTotal(scores) {
-    return scores.reduce((sum, score) => sum + score, 0);
+export function getTotal(scores, filterScores = null) {
+    return scores.reduce((sum, score, i) => {
+        return !filterScores || filterScores[i] !== 0
+            ? sum + score
+            : sum;
+    }, 0);
 }
 
 export function getScoreOffset(playerId, useHandicap = false) {
@@ -65,4 +58,25 @@ export function getScoreOffset(playerId, useHandicap = false) {
     );
 
     return getPlayerTotal(player) - best;
+}
+
+export function getSortValue(player, round) {
+    const total = getTotal(player.scores);
+    const stats = player.stats;
+
+    switch (round.roundSettings.playerInfo) {
+        case SecondaryInfo.TOTAL:
+            return total;
+
+        case SecondaryInfo.TOTAL_HANDICAP:
+            return total + player.handicap;
+        
+        case SecondaryInfo.PERSONAL_BEST:
+            if (!stats.bestRound) return Infinity;
+            return total - getTotal(stats.bestRound, player.scores);
+
+        case SecondaryInfo.BEST_POSSIBLE:
+            if (!stats.bestScores.length) return Infinity;
+            return total - getTotal(stats.bestScores, player.scores);
+    }
 }

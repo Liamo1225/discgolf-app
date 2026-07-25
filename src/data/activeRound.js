@@ -1,7 +1,8 @@
 import { get, set, createUUID } from "./storage";
-import { getLayout } from "./courses";
-import { getTotal } from "./scores";
-import { getSettings } from "./settings";
+import { getSortValue, getTotal } from "./scores";
+import { getSettings, PlayerSorting, SecondaryInfo } from "./settings";
+import { getPlayerStats } from "./stats";
+import { getHistory } from "./history";
 
 // ----- Active round -----
 
@@ -17,19 +18,28 @@ export function getActiveRound() {
 
 // ----- round lifecycle -----
 
-export function startRound(courseId, layoutId, playerIds, settingChanges = {}) {
-    const layout = getLayout(courseId, layoutId);
-
+export function startRound(course, layout, players, settingChanges = {}) {
     const round = {
         id: createUUID(),
 
-        courseId,
-        layoutId,
-
-        players: playerIds.map(id => ({
-            id,
+        course: {
+            id: course.id,
+            name: course.name,
+            layout: {
+                id: layout.id,
+                name: layout.name
+            },
+            length: layout.length,
+            holes: layout.holes
+        },
+            
+        players: players.map(player => ({
+            id: player.id,
+            name: player.name,
+            color: player.color,
             scores: Array(layout.holes).fill(0),
-            handicap: 0
+            handicap: 0,
+            stats: getPlayerStats(player.id, course.id, layout.id)
         })),
 
         roundSettings: {
@@ -43,9 +53,11 @@ export function startRound(courseId, layoutId, playerIds, settingChanges = {}) {
         started: Date.now()
     };
 
-    setActiveRound(round);
-
-    return round;
+    const updatedRound = setHandicap(round);
+    updatedRound.players = reorderPlayers(updatedRound);
+    setActiveRound(updatedRound);
+    
+    return updatedRound;
 }
 
 export function endRound() {
@@ -61,7 +73,7 @@ export function endRound() {
 export function changeHole(amount) {
     const round = getActiveRound();
 
-    const holes = getLayout(round.courseId, round.layoutId).holes;
+    const holes = round.course.holes;
 
     const newHole = Math.min(
         holes + 1,
@@ -83,16 +95,12 @@ export function changeHole(amount) {
 }
 
 function reorderPlayers(round) {
-    if (!round.roundSettings.showTotal) return;
-    if (round.roundSettings.playerOrder === "static") return;
+    if (round.roundSettings.playerInfo === SecondaryInfo.NONE) return round.players;
+    if (round.roundSettings.playerOrder === PlayerSorting.STATIC) return round.players;
 
-    const updatedOrder = round.players.sort((a, b) => {
-        const aTotal = getTotal(a.scores);
-        const bTotal = getTotal(b.scores);
-
-        if (round.roundSettings.handicapMode) {
-            return (aTotal + a.handicap) - (bTotal + b.handicap);
-        }
+    const updatedOrder = [...round.players].sort((a, b) => {
+        const aTotal = getSortValue(a, round);
+        const bTotal = getSortValue(b, round)
 
         return aTotal - bTotal;
     });
@@ -117,7 +125,52 @@ export function updateRoundSettings(updates) {
     return updatedRound;
 }
 
-export function setHandicap() {
-    const round = getActiveRound();
+export function setHandicap(round) {
+    const settings = getSettings();
+    const historyLength = settings.handicapHistory ?? Infinity;
 
+    const courseLength = round.course.length;
+
+    const history = getHistory();
+
+    const playerData = round.players.map(player => {
+        let throws = 0;
+        let length = 0;
+        let games = 0;
+
+        for (let i = history.length - 1; i >= 0 && games < historyLength; i--) {
+            const historyRound = history[i];
+
+            const historyPlayer = historyRound.players.find(
+                p => p.id === player.id
+            );
+
+            if (!historyPlayer) continue;
+
+            throws += getTotal(historyPlayer.scores);
+            length += historyRound.course.length;
+            games++;
+        }
+
+        return {
+            player,
+            TPM: length > 0 ? throws / length : Infinity
+        };
+    });
+
+    const bestTPM = Math.min(
+        ...playerData.map(p => p.TPM).filter(Number.isFinite)
+    );
+
+    return {
+        ...round,
+        players: playerData.map(({ player, TPM }) => {
+            const playerTPM = Number.isFinite(TPM) ? TPM : bestTPM;
+
+            return {
+                ...player,
+                handicap: Math.round((playerTPM - bestTPM) * courseLength) 
+            };
+        })
+    }
 }

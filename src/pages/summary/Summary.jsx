@@ -11,7 +11,6 @@ export default function Summary({round}) {
     return (
         <div className="summary"
             onClick={() => {
-                console.log(round);
                 const historyEntry = convertActiveToHistory(round);
                 addHistory(historyEntry);
                 endRound();

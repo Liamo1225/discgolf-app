@@ -1,16 +1,29 @@
 import { get, set } from "./storage";
 
-const KEY = "settings";
+export const PlayerSorting = {
+    MOVING: "moving",
+    STATIC: "static"
+}
+
+export const SecondaryInfo = {
+    NONE: "none",
+    TOTAL: "total",
+    TOTAL_HANDICAP: "total_handicap",
+    PERSONAL_BEST: "personalBest",
+    BEST_POSSIBLE: "bestPossible"
+};
 
 const DEFAULT_SETTINGS = {
     defaultNewRound: {
-        showTotal: true,
-        handicapMode: true,
-        playerOrder: "total"
-    }
+        playerInfo: SecondaryInfo.TOTAL_HANDICAP,
+        playerOrder: PlayerSorting.MOVING
+    },
+    handicapHistory: 5
 };
 
 // ----- Settings -----
+
+const KEY = "settings";
 
 export function getSettings() {
     return {...DEFAULT_SETTINGS, ...get(KEY)};

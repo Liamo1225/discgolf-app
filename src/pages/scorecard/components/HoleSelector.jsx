@@ -6,8 +6,6 @@ import {
     FlagFill
 } from "react-bootstrap-icons";
 
-import { getLayout } from "../../../data/courses";
-
 function getHoleContent(hole, totalHoles) {
     if (hole >= 1 && hole <= totalHoles)
         return hole;
@@ -19,7 +17,7 @@ function getHoleContent(hole, totalHoles) {
 }
 
 export default function HoleSelector({ round, onChangeHole }) {
-    const totalHoles = getLayout(round.courseId, round.layoutId).holes;
+    const totalHoles = round.course.holes;
     const currentHole = round.currentHole;
 
     const holes = Array.from({ length: totalHoles + 5 }, (_, i) => i - 1);

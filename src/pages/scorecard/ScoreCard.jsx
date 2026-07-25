@@ -9,7 +9,6 @@ import Summary from "../summary/Summary";
 
 import { getActiveRound, changeHole } from "../../data/activeRound";
 import { changeScore } from "../../data/scores";
-import { getLayout } from "../../data/courses";
 
 const SWIPE_THRESHOLE = 60;
 
@@ -49,15 +48,13 @@ export default function Scorecard() {
         }
     }
 
-    const holeCount = getLayout(roundData.courseId, roundData.layoutId).holes;
-
     return (
         <div
             className="scorecard"
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
         >
-            <ScoreHeader courseId={roundData.courseId}/>
+            <ScoreHeader round={roundData}/>
 
             <HoleSelector
                 round={roundData}
@@ -67,7 +64,7 @@ export default function Scorecard() {
             <div className="seperator"></div>
 
             {
-                roundData.currentHole <= holeCount ? (
+                roundData.currentHole <= roundData.course.holes ? (
                     <PlayerList 
                         round={roundData}
                         onChangeScore={onChangeScore}

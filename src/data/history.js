@@ -40,10 +40,8 @@ export function deleteHistory(id) {
 // ----- Helpers -----
 
 export function convertActiveToHistory(activeRound) {
-    const course = getCourse(activeRound.courseId);
-    const layout = getLayout(activeRound.courseId, activeRound.layoutId);
-
-    const players = getPlayers();
+    const course = activeRound.course;
+    const layout = activeRound.course.layout;
 
     return {
         id: activeRound.id,
@@ -51,25 +49,21 @@ export function convertActiveToHistory(activeRound) {
         course: {
             id: course.id,
             name: course.name,
-            layoutId: layout.id,
-            layoutName: layout.name,
+            layout: {
+                id: layout.id,
+                name: layout.name
+            },
             length: layout.length,
             holes: layout.holes
         },
 
-        players: activeRound.players.map(roundPlayer => {
-            const player = players.find(
-                p => p.id === roundPlayer.id
-            );
-
-            return {
-                id: player.id,
-                name: player.name,
-                color: player.color,
-                scores: roundPlayer.scores,
-                handicap: roundPlayer.handicap
-            }
-        }),
+        players: activeRound.players.map(player => ({
+            id: player.id,
+            name: player.name,
+            color: player.color,
+            scores: player.scores,
+            handicap: player.handicap
+        })),
 
         date: Date.now(),
 

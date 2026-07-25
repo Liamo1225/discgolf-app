@@ -1,3 +1,6 @@
+import { getHistory } from "./history";
+import { getTotal } from "./scores";
+
 // ----- Player stats -----
 
 const playerStatsCache = new Map();
@@ -22,11 +25,12 @@ export function clearPlayerStatsCache() {
 function calculatePlayerStats(playerId, courseId, layoutId) {
     const rounds = getHistory().filter(round =>
         round.course.id === courseId &&
-        round.course.layoutId === layoutId
+        round.course.layout.id === layoutId
     );
 
     let bestRound = null;
-    let bestHoleScores = [];
+    let bestRoundT = Infinity;
+    let bestScores = [];
 
     rounds.forEach(round => {
         const player = round.players.find(
@@ -37,22 +41,20 @@ function calculatePlayerStats(playerId, courseId, layoutId) {
 
         const total = getTotal(player.scores);
 
-        if (!bestRound || total < bestRound.total) {
-            bestRound = {
-                total,
-                scores: player.scores
-            };
+        if (total < bestRoundT) {
+            bestRound = [...player.scores];
+            bestRoundT = total;
         }
 
         player.scores.forEach((score, index) => {
-            if (bestHoleScores[index] === undefined || score < bestHoleScores[index]) {
-                bestHoleScores[index] = score;
+            if (bestScores[index] === undefined || score < bestScores[index]) {
+                bestScores[index] = score;
             }
         });
     });
 
     return {
         bestRound,
-        bestHoleScores
+        bestScores
     };
 }

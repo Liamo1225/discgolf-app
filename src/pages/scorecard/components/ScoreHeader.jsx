@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../../utils/modal/ModalContext";
 
-import { getCourse } from "../../../data/courses";
 import ScorecardSettings from "../../../utils/modal/windows/ScorecardSettings";
 
 import {
@@ -9,11 +8,12 @@ import {
     ThreeDots
 } from "react-bootstrap-icons";
 
-export default function ScoreHeader({courseId}) {
+export default function ScoreHeader({round}) {
     const navigate = useNavigate();
     const { openModal } = useModal();
 
-    const courseName = getCourse(courseId)?.name ?? "Unknown Course";
+    const courseName = round.course?.name ?? "Unknown Course";
+    const layoutName = round.course.layout?.name ?? "Unknown Layout";
 
     return (
         <header className="header">
@@ -24,13 +24,18 @@ export default function ScoreHeader({courseId}) {
                 <BoxArrowLeft size={42}/>
             </button>
 
-            <h1>{courseName}</h1>
+            <div className="header-name">
+                <h1>{courseName}</h1>
+                <h2>{layoutName}</h2>
+            </div>
+            
+
 
             <button
                 className="settings-btn"
                 onClick={() => openModal(<ScorecardSettings />)}
             >
-                <ThreeDots size={42}/>★
+                <ThreeDots size={42}/>
             </button>
         </header>
     );

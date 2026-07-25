@@ -11,58 +11,57 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-}
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-    padding: 0 15px;
-    padding-top: env(save-area-inset-top);
+        padding: 0 15px;
+        padding-top: env(save-area-inset-top);
 
-    height: calc(80px + env(safe-area-inset-top));
+        height: calc(80px + env(safe-area-inset-top));
+        
+        background-color: var(--header-color);
+        border-bottom: 5px solid var(--border-color);
+    }
 
-    font-size: 1.2rem;
-    
-    background-color: var(--header-color);
-    border-bottom: 5px solid var(--border-color);
-}
+    .header button {
+        flex: 0 0 auto;
+        border: none;
 
-.header button {
-    flex: 0 0 auto;
-    border: none;
+        color: var(--text-color);
+        background: none;
+    }
 
-    color: var(--text-color);
-    background: none;
-}
+    .header-name {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
 
-.header h1 {
-    flex: 1;
-    min-width: 0;
-    margin: 0;
+    .header-name h1 {
+        font-size: clamp(1rem, 11.2rem, 1.8rem);
+    }
 
-    text-align: center;
+    .header-name h2 {
+        font-size: clamp(0.5rem, 5.8rem, 0.9rem);
+        color: var(--secondary-text-color);
+    }
 
-    font-size: clamp(1rem, 11.2rem, 1.8rem);
+    .seperator {
+        min-height: 15px;
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+        background-color: var(--header-color);
+        border-bottom: 5px solid var(--border-color);
+    }
 
-.seperator {
-    min-height: 15px;
+    .player-list {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
 
-    background-color: var(--header-color);
-    border-bottom: 5px solid var(--border-color);
-}
-
-.player-list {
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
-
-    background-color: var(--player-bg-color);
-    border: none;
+        background-color: var(--player-bg-color);
+        border: none;
+    }
 }

@@ -1,13 +1,9 @@
 import "./PlayerRow.css";
 
-import {
-    getScore,
-    getScoreOffset,
-    getTotal
-} from "../../../data/scores";
+import { getScoreOffset, getTotal } from "../../../data/scores";
 
-import { getPlayer, getPlayers } from "../../../data/players";
 import { getPlayerStats } from "../../../data/stats";
+import { SecondaryInfo } from "../../../data/settings";
 
 import {
     PersonFill,
@@ -16,48 +12,49 @@ import {
     Dash
 } from "react-bootstrap-icons";
 
-export const SecondaryInfo = {
-    NONE: "none",
-    TOTAL: "total",
-    TOTAL_HANDICAP: "total_handicap",
-    PERSONAL_BEST: "personalBest",
-    BEST_POSSIBLE: "bestPossible"
-};
-
-function getSecondaryText(player, roundPlayer, round) {
-    const total = getTotal(roundPlayer.scores);
-    const handicapTotal = total + roundPlayer.handicap;
+function getSecondaryText(player, round) {
+    const total = getTotal(player.scores);
+    const handicapTotal = total + player.handicap;
 
     switch (round.roundSettings.playerInfo) {
         case SecondaryInfo.TOTAL:
-            return `+${getScoreOffset(playerId)} (${total})`;
+            return `+${getScoreOffset(player.id, false)} (${total})`;
         
         case SecondaryInfo.TOTAL_HANDICAP:
-            return `+${getScoreOffset(playerId, true)} (${handicapTotal})`;
+            return `+${getScoreOffset(player.id, true)} (${handicapTotal})`;
         
         case SecondaryInfo.PERSONAL_BEST: {
-            const stats = getPlayerStats(
-                playerId, round.courseId, round.layoutId
-            );
+            const stats = player.stats;
 
             if (!stats.bestRound)
                 return "???";
 
-            const best = stats.bestRound.total;
-            const diff = total - best;
+            const best = getTotal(
+                stats.bestRound,
+                player.scores
+            );
 
-            return `+${diff} (${total}) ★${stats.bestRound.scores[round.currentHole - 1]}`;
+            const diff = total - best;
+            const currentBest = stats.bestRound[round.currentHole - 1];
+
+            return `${formatDiff(diff)} (${total}) ★${currentBest}`;
         }
         
         case SecondaryInfo.BEST_POSSIBLE: {
-            const stats = getPlayerStats(
-                playerId, round.courseId, round.layoutId
-            );
+            const stats = player.stats;
 
-            if (!stats,bestHoleScores.length)
+            if (!stats.bestScores.length)
                 return "???";
 
-            const bestPossible = stats.best
+            const bestPossible = getTotal(
+                stats.bestScores,
+                player.scores
+            );
+
+            const diff = total - bestPossible;
+            const currentBest = stats.bestScores[round.currentHole - 1];
+
+            return `${formatDiff(diff)} (${total}) ★${currentBest}`;
         }
         
         case SecondaryInfo.NONE:
@@ -66,11 +63,12 @@ function getSecondaryText(player, roundPlayer, round) {
     }
 }
 
-export default function PlayerRow({ playerId, round, onChangeScore }) {
-    const player = getPlayer(playerId);
-    const roundPlayer = round.players.find(player => player.id === playerId);
+function formatDiff(value) {
+    return value >= 0 ? `+${value}` : `${value}`;
+}
 
-    const score = getScore(playerId, round.currentHole);
+export default function PlayerRow({ player, round, onChangeScore }) {
+    const score = player.scores[round.currentHole - 1];
 
     return (
         <div className="player-row">
@@ -88,13 +86,7 @@ export default function PlayerRow({ playerId, round, onChangeScore }) {
                     </div>
 
                     <div className="player-secondary-info">
-                        {
-                            getSecondaryText(
-                                playerId,
-                                roundPlayer,
-                                round
-                            )
-                        }
+                        {getSecondaryText(player, round)}
                     </div>
                 </div>
             </div>
@@ -103,7 +95,7 @@ export default function PlayerRow({ playerId, round, onChangeScore }) {
 
                 <button
                     className="score-btn"
-                    onClick={() => onChangeScore(playerId, -1)}
+                    onClick={() => onChangeScore(player.id, -1)}
                 >
                     <DashCircleFill size={40}/>
                 </button>
@@ -122,7 +114,7 @@ export default function PlayerRow({ playerId, round, onChangeScore }) {
                 
                 <button
                     className="score-btn"
-                    onClick={() => onChangeScore(playerId, 1)}
+                    onClick={() => onChangeScore(player.id, 1)}
                 >
                     <PlusCircleFill size={40}/>
                 </button>
