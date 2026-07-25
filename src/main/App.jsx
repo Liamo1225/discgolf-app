@@ -7,7 +7,7 @@ import Home from "../pages/home/Home";
 import ScoreCard from "../pages/scorecard/ScoreCard";
 import History from "../pages/history/History";
 
-import Modal from "./modal/Modal";
+import Modal from "../utils/modal/Modal";
 
 export default function App() {
   const [modal, setModal] = useState({

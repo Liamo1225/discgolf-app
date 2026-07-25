@@ -1,24 +1,25 @@
-import { getLayout } from "./course";
-import { getPlayers } from "./players";
-import { getSettings } from "./settings";
-
 import { get, set, createUUID } from "./storage";
-
-const KEY = "activeRound";
+import { getLayout } from "./courses";
+import { getTotal } from "./scores";
+import { getSettings } from "./settings";
 
 // ----- Active round -----
 
-export function getActiveRound() {
-    return get(KEY);
-}
+const KEY = "activeRound";
 
 export function setActiveRound(round) {
     set(KEY, round);
 }
 
+export function getActiveRound() {
+    return get(KEY);
+}
+
 // ----- round lifecycle -----
 
 export function startRound(courseId, layoutId, playerIds, settingChanges = {}) {
+    const layout = getLayout(courseId, layoutId);
+
     const round = {
         id: createUUID(),
 
@@ -27,7 +28,7 @@ export function startRound(courseId, layoutId, playerIds, settingChanges = {}) {
 
         players: playerIds.map(id => ({
             id,
-            scores: Array(getLayout(courseId, layoutId).holes).fill(0),
+            scores: Array(layout.holes).fill(0),
             handicap: 0
         })),
 
@@ -36,11 +37,13 @@ export function startRound(courseId, layoutId, playerIds, settingChanges = {}) {
             ...settingChanges
         },
 
+        holeOrder: layout.holeOrder,
         currentHole: 1,
+
         started: Date.now()
     };
 
-    set(KEY, round);
+    setActiveRound(round);
 
     return round;
 }
@@ -48,73 +51,9 @@ export function startRound(courseId, layoutId, playerIds, settingChanges = {}) {
 export function endRound() {
     const round = getActiveRound();
 
-    set(KEY, null);
+    setActiveRound(null);
     
     return round;
-}
-
-// ----- Scores -----
-
-export function changeScore(playerId, hole, score) {
-    const round = getActiveRound();
-
-    const updatedPlayers = round.players.map(player => {
-        if (player.id !== playerId) {
-            return player;
-        }
-
-        const scores = [...player.scores];
-        const currentScore = player.scores[hole - 1];
-        scores[hole - 1] = Math.max(0, currentScore + score);
-
-        return {
-            ...player, scores
-        };
-    });
-
-    const updatedRound = {
-        ...round,
-        players: updatedPlayers
-    }
-
-    set(KEY, updatedRound);
-    return updatedRound;
-}
-
-export function getScore(playerId, hole) {
-    const round = getActiveRound();
-
-    const player = round.players.find(
-        player => player.id === playerId
-    );
-
-    return player?.scores[hole - 1] ?? 0;
-}
-
-export function getTotal(scores) {
-    return scores.reduce((sum, score) => sum + score, 0);
-}
-
-export function getScoreOffset(playerId, useHandicap = false) {
-    const round = getActiveRound();
-
-    const getPlayerTotal = (player) => {
-        const total = getTotal(player.scores);
-
-        return useHandicap
-            ? total + player.handicap
-            : total;
-    };
-
-    const player = round.players.find(
-        player => player.id === playerId
-    );
-
-    const best = Math.min(
-        ...round.players.map(getPlayerTotal)
-    );
-
-    return getPlayerTotal(player) - best;
 }
 
 // ----- Hole navigation -----
@@ -161,7 +100,7 @@ function reorderPlayers(round) {
     return updatedOrder;
 }
 
-// ----- round settings -----
+// ----- Round settings -----
 
 export function updateRoundSettings(updates) {
     const round = getActiveRound();

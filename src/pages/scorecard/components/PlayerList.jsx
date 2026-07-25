@@ -1,17 +1,8 @@
 import { motion } from "framer-motion";
 
 import PlayerRow from "./PlayerRow";
-import Summary from "./Summary";
-
-import { getLayout } from "../../../data/course";
 
 export default function PlayerList({ round, onChangeScore }) {
-    const totalHoles = getLayout(round.courseId, round.layoutId).holes; 
-
-    if (round.currentHole === totalHoles + 1) {
-        return <Summary round={round} />
-    }
-
     return (
         <div className="player-list">
             {

@@ -1,5 +1,3 @@
-export const STORAGE_KEY = "discgolfData";
-
 const DEFAULT_DB = {
     players: [],
     courses: [],
@@ -9,6 +7,8 @@ const DEFAULT_DB = {
 }
 
 // ----- Data managing -----
+
+const STORAGE_KEY = "discgolfData";
 
 function saveDB(db) {
     try {

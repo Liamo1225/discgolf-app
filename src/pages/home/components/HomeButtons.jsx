@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { getActiveRound } from "../../../data/activeRound";
 
 import {
     GearFill,
@@ -7,21 +8,19 @@ import {
     GeoAltFill,
     PlayFill,
     ArrowRepeat,
-} from "react-bootstrap-icons"
-
-import { getActiveRound } from "../../../data/activeRound";
+} from "react-bootstrap-icons";
 
 import GenTestData from "../../../data/testData";
 
-export default function MenuButtons() {
+export default function HomeButtons() {
     const navigate = useNavigate();
 
-    const menuButtons = [
+    const homeButtons = [
         {
             className: "top-left",
             icon: <PeopleFill size={42} />,
             label: "Players",
-            action: () => console.log("Open players")
+            action: () => navigate("/players")
         },
         {
             className: "top-right",
@@ -33,13 +32,13 @@ export default function MenuButtons() {
             className: "bottom-left",
             icon: <GeoAltFill size={42} />,
             label: "Courses",
-            action: () => console.log("Open courses")
+            action: () => navigate("/courses")
         },
         {
             className: "bottom-right",
             icon: <GearFill size={42} />,
             label: "Settings",
-            action: () => console.log("Open settings")
+            action: () => navigate("/settings")
         }
     ];
 
@@ -52,22 +51,24 @@ export default function MenuButtons() {
         } else {
             console.log("Start new round");
             GenTestData();
-            navigate("/scorecard");
+            navigate("/scorecard"); // new game page
         }
     }
 
     return (
         <>
-            {menuButtons.map((button, index) => (
-                <button
-                    key={index}
-                    className={`quadrant ${button.className}`}
-                    onClick={button.action}
-                >
-                    {button.icon}
-                    <span>{button.label}</span>
-                </button>
-            ))}
+            {
+                homeButtons.map((button, index) => (
+                    <button
+                        key={index}
+                        className={`quadrant ${button.className}`}
+                        onClick={button.action}
+                    >
+                        {button.icon}
+                        <span>{button.label}</span>
+                    </button>
+                ))
+            }
 
             <button
                 className="start-btn"

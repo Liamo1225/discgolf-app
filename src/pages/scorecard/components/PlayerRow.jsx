@@ -4,10 +4,10 @@ import {
     getScore,
     getScoreOffset,
     getTotal
-} from "../../../data/activeRound";
+} from "../../../data/scores";
 
 import { getPlayer, getPlayers } from "../../../data/players";
-import { getPlayerStats } from "../../../data/history";
+import { getPlayerStats } from "../../../data/stats";
 
 import {
     PersonFill,

@@ -1,8 +1,12 @@
 import { get, set, createUUID } from "./storage";
 
+// ----- Players -----
+
 const KEY = "players";
 
-// ----- Players -----
+function setPlayers(players) {
+    set(KEY, players);
+}
 
 export function getPlayers() {
     return get(KEY);
@@ -53,6 +57,3 @@ export function deletePlayer(id) {
 
     set(KEY, players.filter(player => player.id !== id));
 }
-
-// ----- Stats -----
-

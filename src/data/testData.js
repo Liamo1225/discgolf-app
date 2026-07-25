@@ -1,5 +1,5 @@
 import { startRound } from "./activeRound";
-import { addCourse, addLayout } from "./course";
+import { addCourse, addLayout } from "./courses";
 import { addPlayer } from "./players";
 
 export default function GenTestData() {

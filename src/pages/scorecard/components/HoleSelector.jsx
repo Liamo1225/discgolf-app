@@ -6,7 +6,7 @@ import {
     FlagFill
 } from "react-bootstrap-icons";
 
-import { getLayout } from "../../../data/course";
+import { getLayout } from "../../../data/courses";
 
 function getHoleContent(hole, totalHoles) {
     if (hole >= 1 && hole <= totalHoles)

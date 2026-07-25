@@ -3,7 +3,7 @@ import { RoundResult } from "./RoundResult";
 import { getHistory } from "../../../data/history";
 import { useState } from "react";
 
-import { getTotal } from "../../../data/activeRound";
+import { getTotal } from "../../../data/scores";
 
 export function RoundList() {
     const history = getHistory();

@@ -1,8 +1,12 @@
 import { get, set, createUUID } from "./storage";
 
+// ----- Courses -----
+
 const KEY = "courses";
 
-// ----- Courses -----
+function setCourses(courses) {
+    set(KEY, courses);
+}
 
 export function getCourses() {
     return get(KEY);
@@ -27,7 +31,7 @@ export function addCourse(name) {
         layouts: []
     };
 
-    set(KEY, [...courses, course]);
+    setCourses([...courses, course]);
 
     return course;
 }
@@ -45,13 +49,13 @@ export function updateCourse(id, updates) {
         }
     });
 
-    set(KEY, updatedCourses);
+    setCourses(updatedCourses);
 }
 
 export function deleteCourse(id) {
     const courses = getCourses();
 
-    set(KEY, courses.filter(course => course.id !== id));
+    setCourses(courses.filter(course => course.id !== id));
 }
 
 // ----- Layouts -----

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useModal } from "../../../main/modal/ModalContext";
+import { useModal } from "../../../utils/modal/ModalContext";
 
-import { getCourse } from "../../../data/course";
-import ScorecardSettings from "../../../main/modal/windows/ScorecardSettings";
+import { getCourse } from "../../../data/courses";
+import ScorecardSettings from "../../../utils/modal/windows/ScorecardSettings";
 
 import {
     BoxArrowLeft,
@@ -11,7 +11,6 @@ import {
 
 export default function ScoreHeader({courseId}) {
     const navigate = useNavigate();
-
     const { openModal } = useModal();
 
     const courseName = getCourse(courseId)?.name ?? "Unknown Course";

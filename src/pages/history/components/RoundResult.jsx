@@ -1,6 +1,6 @@
 import "./RoundResult.css";
 
-import { getTotal } from "../../../data/activeRound";
+import { getTotal } from "../../../data/scores";
 
 export function RoundResult({ expanded, players}) {
     return (

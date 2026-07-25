@@ -1,8 +1,9 @@
-import "./Summary.css"
-
-import { convertActiveToHistory, addHistory } from "../../../data/history"
 import { useNavigate } from "react-router-dom";
-import { endRound } from "../../../data/activeRound";
+
+import { convertActiveToHistory, addHistory } from "../..//data/history"
+import { endRound } from "../..//data/activeRound";
+
+import "./Summary.css"
 
 export default function Summary({round}) {
     const navigate = useNavigate();

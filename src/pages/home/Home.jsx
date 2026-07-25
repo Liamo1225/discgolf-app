@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
-import MenuButtons from "./components/MenuButtons";
+import HomeButtons from "./components/HomeButtons";
 import HomeStats from "./components/HomeStats";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 
 
             <main className="menu">
-                <MenuButtons />
+                <HomeButtons />
             </main>
 
             <HomeStats />
