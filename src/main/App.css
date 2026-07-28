@@ -2,11 +2,13 @@
     /* Main colors */
     --background-color: #1a1a1a;
     --header-color: #292934;
-    --border-color: hsl(240, 6%, 10%);
+    --border-color: #0d0d0f;
 
     /* Text */
     --text-color: white;
     --secondary-text-color: #878787;
+
+    --box-shadow-color: #000000a3;
 }
 
 html,

@@ -54,6 +54,7 @@
 
         font-size: 1rem;
         color: var(--text-color);
+        box-shadow: 3px 7px var(--box-shadow-color);
     }
 
     .top-left {

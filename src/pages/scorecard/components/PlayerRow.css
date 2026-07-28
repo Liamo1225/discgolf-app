@@ -44,6 +44,8 @@
     background: none;
     border: none;
     color: var(--change-score-color);
+    box-shadow: 2px 5px var(--box-shadow-color);
+    border-radius: 100%;
 }
 
 .score-value {

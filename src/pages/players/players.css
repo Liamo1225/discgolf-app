@@ -6,6 +6,10 @@
     flex-direction: column;
     height: 100vh;
 
+    .head-add-btn {
+        padding-left: 7px;
+    }
+
     .player-list {
         flex: 1;
         min-height: 0;
@@ -15,6 +19,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        padding-top: 10px;
     }
 
     .player {
@@ -24,7 +29,13 @@
         height: 80px;
 
         padding: 0 15px;
-        border-bottom: 3px dashed var(--player-border-color);
+        margin: 0 15px;
+
+        border-radius: 18px;
+
+        background: color-mix(in srgb, var(--player-color) 20%, black);
+        border: none;
+        box-shadow: 2px 5px var(--box-shadow-color);
     }
 
     .player-info {
@@ -52,7 +63,7 @@
 
     .edit-btn {
         border: none;
-        background-color: var(--background-color);
+        background: transparent;
         color: var(--text-color);
     }
 
@@ -62,8 +73,9 @@
         background-color: var(--new-player-color);
         border: none;
         border-radius: 15px;
-        margin: 0 20px;
+        margin: 5px 20px;
         font-size: 1rem;
         font-weight: 500;
+        box-shadow: 2px 5px var(--box-shadow-color);
     }
 }

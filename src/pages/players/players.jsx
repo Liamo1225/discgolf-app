@@ -7,7 +7,7 @@ import { calcRoundsPlayedAll } from "../../data/stats";
 import {
     ArrowLeft,
     PersonFill,
-    Plus,
+    PersonPlusFill,
     ThreeDots
 } from "react-bootstrap-icons";
 
@@ -36,14 +36,19 @@ export default function Players() {
                     className="head-add-btn"
                     onClick={() => {}}
                 >
-                    <Plus size={42} />
+                    <PersonPlusFill size={35} />
                 </button>
             </header>
 
             <main className="player-list">
                 {
                     sortedPlayer.map((player) => (
-                        <div className="player" key={player.id}>
+                        <div
+                            key={player.id}
+                            className="player"
+                            style={{ "--player-color": player.color}}
+                            >
+                                
                             <div className="player-info">
                                 <PersonFill size={40} color={player.color} />
                                 <h2 className="player-name">{player.name}</h2>
