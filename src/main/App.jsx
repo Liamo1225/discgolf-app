@@ -5,6 +5,7 @@ import './App.css';
 
 import Home from "../pages/home/Home";
 import ScoreCard from "../pages/scorecard/ScoreCard";
+import Players from "../pages/players/players";
 import History from "../pages/history/History";
 
 import Modal from "../utils/modal/Modal";
@@ -21,6 +22,7 @@ export default function App() {
 
         <Route path="/" element={<Home />}/>
         <Route path="/scorecard" element={<ScoreCard />}/>
+        <Route path="/players" element={<Players />}/>
         <Route path="/history" element={<History />}/>
         
       </Routes>

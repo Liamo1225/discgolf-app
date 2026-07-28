@@ -21,17 +21,7 @@
     background-color: var(--background-color);
 
     .header {
-        padding-top: env(safe-area-inset-top);
-
-        display: flex;
         justify-content: center;
-        align-items: center;
-
-        font-size: 1.2rem;
-        height: 80px;
-        
-        background-color: var(--header-color);
-        border-bottom: 5px solid var(--border-color);
     }
 
     .menu {

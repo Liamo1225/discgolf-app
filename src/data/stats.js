@@ -37,7 +37,7 @@ function calculatePlayerStats(playerId, courseId, layoutId) {
             player => player.id === playerId
         );
 
-        if (!player) return;
+        if (!player) return;;
 
         const total = getTotal(player.scores);
 
@@ -57,4 +57,16 @@ function calculatePlayerStats(playerId, courseId, layoutId) {
         bestRound,
         bestScores
     };
+}
+
+export function calcRoundsPlayedAll() {
+    const result = new Map();
+
+    for (const round of getHistory()) {
+        for (const player of round.players) {
+            result.set(player.id, (result.get(player.id) ?? 0) + 1);
+        }
+    }
+
+    return result;
 }

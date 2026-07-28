@@ -11,11 +11,11 @@ export default function GenTestData() {
     clearPlayerStatsCache()
 
     const players = [];
-    players.push(addPlayer("Liam", "#057a14"));
-    players.push(addPlayer("Wilma", "#ad0f78"));
-    players.push(addPlayer("Benjamin", "#0d078b"));
-    players.push(addPlayer("Mamma", "#d9bd08"));
-    players.push(addPlayer("Pappa", "#683406"));
+    players.push(addPlayer("Player1", "#057a14"));
+    players.push(addPlayer("Player2", "#ad0f78"));
+    players.push(addPlayer("Player3", "#0d078b"));
+    players.push(addPlayer("Player4", "#d9bd08"));
+    players.push(addPlayer("Player5", "#683406"));
 
     const course = addCourse("Test Course");
     const layout = addLayout(course.id, "Lay1", 1000, 9);

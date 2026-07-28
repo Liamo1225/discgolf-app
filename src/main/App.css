@@ -29,3 +29,25 @@ body {
     color: var(--text-color);
     font-family: sans-serif;
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+
+    font-size: 1.2rem;
+
+    padding-top: env(save-area-inset-top);
+
+    height: calc(80px + env(safe-area-inset-top));
+    
+    background-color: var(--header-color);
+    border-bottom: 5px solid var(--border-color);
+}
+
+.header button {
+    color: var(--text-color);
+    background: none;
+    border: none;
+}

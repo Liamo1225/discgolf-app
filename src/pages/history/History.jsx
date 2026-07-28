@@ -1,9 +1,12 @@
 import "./History.css";
 
-import { ArrowLeft } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-
 import { RoundList } from "./components/RoundList";
+
+import {
+    ArrowLeft,
+    Plus
+} from "react-bootstrap-icons";
 
 export default function History () {
     const navigate = useNavigate();
@@ -19,6 +22,13 @@ export default function History () {
                 </button>
 
                 <h1>History</h1>
+
+                <button
+                    className="head-add-btn"
+                    onClick={() => {}}
+                >
+                    <Plus size={42} />
+                </button>
             </header>
 
             <RoundList />

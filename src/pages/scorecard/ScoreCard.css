@@ -12,20 +12,6 @@
     flex-direction: column;
     overflow: hidden;
 
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        padding: 0 15px;
-        padding-top: env(save-area-inset-top);
-
-        height: calc(80px + env(safe-area-inset-top));
-        
-        background-color: var(--header-color);
-        border-bottom: 5px solid var(--border-color);
-    }
-
     .header button {
         flex: 0 0 auto;
         border: none;
