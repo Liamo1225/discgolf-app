@@ -3,7 +3,7 @@ import { addCourse, addLayout, courseExists } from "./courses";
 import { addPlayer } from "./players";
 import { addHistory } from "./history";
 import { data } from "react-router-dom";
-import { SecondaryInfo } from "./settings";
+import { ScoreMode } from "./settings";
 import { clearPlayerStatsCache } from "./stats";
 
 export default function GenTestData() {
@@ -25,9 +25,7 @@ export default function GenTestData() {
     genTestHistory(players, course1, layout1, 3);
     genTestHistory(players, course1, layout2, 1);
 
-    const newSettings = {
-        playerInfo: SecondaryInfo.BEST_POSSIBLE
-    }
+    const newSettings = {};
 
     startRound(course1, layout1, players, newSettings);
 }

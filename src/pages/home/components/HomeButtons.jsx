@@ -46,10 +46,8 @@ export default function HomeButtons() {
 
     function onStartRound() {
         if (ongoingRound) {
-            console.log("Resume round");
             navigate("/scorecard");
         } else {
-            console.log("Start new round");
             GenTestData();
             navigate("/scorecard"); // new game page
         }

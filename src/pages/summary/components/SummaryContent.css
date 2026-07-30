@@ -1,0 +1,126 @@
+.summary-content {
+    --podium-border-color: #000000;
+    --podium-first: #FFD54A;
+    --podium-second: #C9D1D9;
+    --podium-third: #C47A3A;
+
+    --border-color: #5e5858;
+    --button-bg: #e53935;
+
+    .podium {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin: 72px 16px 32px;
+    }
+
+    .podium-player {
+        position: relative;
+        flex: 1;
+        max-width: 110px;
+
+        display: flex;
+        justify-content: center;
+
+        border: 2px solid var(--podium-border-color);
+    }
+
+    .podium-player.first {
+        height: 150px;
+        background: var(--podium-first);
+        border-radius: 16px 16px 0 0;
+    }
+
+    .podium-player.second {
+        height: 115px;
+        background: var(--podium-second);
+        border-radius: 16px 0 0 0;
+    }
+
+    .podium-player.third {
+        height: 90px;
+        background: var(--podium-third);
+        border-radius: 0 16px 0 0;
+    }
+
+    .podium-name {
+        position: absolute;
+        top: -32px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: 100%;
+        text-align: center;
+
+        font-size: .95rem;
+        font-weight: 600;
+    }
+
+    .podium-place {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        font-size: 2rem;
+    }
+
+    .summary-player {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 18px 75px;
+
+        background: var(--background-color);
+        border-top: 3px dashed var(--border-color);
+    }
+
+    .summary-player:nth-last-child(2) {
+        border-bottom: 3px dashed var(--border-color);
+    }
+
+    .summary-player h3 {
+        margin: 0 0 16px;
+        font-size: 1.2rem;
+        color: var(--text-color);
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        padding: 10px 0;
+
+        border-bottom: 1px solid var(--secondary-text-color);
+    }
+
+    .summary-row:last-child {
+        border-bottom: none;
+    }
+
+    .summary-row span:first-child {
+        color: var(--text-color);
+    }
+
+    .summary-row span:last-child {
+        color: var(--text-color);
+        font-weight: 600;
+    }
+
+    .summary-end-btn {
+        width: calc(100% - 32px);
+        margin: 24px 16px 32px;
+        padding: 16px;
+
+        border: none;
+        border-radius: 14px;
+
+        background: var(--button-bg);
+        color: var(--text-color);
+
+        font-size: 1rem;
+        font-weight: 700;
+    }
+}

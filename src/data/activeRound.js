@@ -1,8 +1,8 @@
 import { get, set, createUUID } from "./storage";
 import { getSortValue, getTotal } from "./scores";
-import { getSettings, PlayerSorting, SecondaryInfo } from "./settings";
+import { getSettings, PlayerSorting, ScoreMode } from "./settings";
 import { getPlayerStats } from "./stats";
-import { getHistory } from "./history";
+import { addHistory, convertActiveToHistory, getHistory } from "./history";
 
 // ----- Active round -----
 
@@ -62,6 +62,9 @@ export function startRound(course, layout, players, settingChanges = {}) {
 
 export function endRound() {
     const round = getActiveRound();
+    
+    const historyEntry = convertActiveToHistory(round);
+    addHistory(historyEntry);
 
     setActiveRound(null);
     
@@ -95,7 +98,7 @@ export function changeHole(amount) {
 }
 
 function reorderPlayers(round) {
-    if (round.roundSettings.playerInfo === SecondaryInfo.NONE) return round.players;
+    if (round.roundSettings.showScore === false) return round.players;
     if (round.roundSettings.playerOrder === PlayerSorting.STATIC) return round.players;
 
     const updatedOrder = [...round.players].sort((a, b) => {

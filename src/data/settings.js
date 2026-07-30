@@ -5,8 +5,7 @@ export const PlayerSorting = {
     STATIC: "static"
 }
 
-export const SecondaryInfo = {
-    NONE: "none",
+export const ScoreMode = {
     TOTAL: "total",
     TOTAL_HANDICAP: "total_handicap",
     PERSONAL_BEST: "personalBest",
@@ -15,7 +14,8 @@ export const SecondaryInfo = {
 
 const DEFAULT_SETTINGS = {
     defaultNewRound: {
-        playerInfo: SecondaryInfo.TOTAL_HANDICAP,
+        scoreMode: ScoreMode.TOTAL_HANDICAP,
+        showScore: true,
         playerOrder: PlayerSorting.MOVING
     },
     handicapHistory: 5

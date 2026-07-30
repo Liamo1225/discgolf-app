@@ -8,6 +8,7 @@ import ScoreCard from "../pages/scorecard/ScoreCard";
 import Players from "../pages/players/Players";
 import History from "../pages/history/History";
 import Courses from "../pages/courses/Courses";
+import Settings from "../pages/settings/Settings";
 
 import Modal from "../utils/modal/Modal";
 
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/players" element={<Players />}/>
         <Route path="/history" element={<History />}/>
         <Route path="/courses" element={<Courses />}/>
+        <Route path="/settings" element={<Settings />}/>
         
       </Routes>
 

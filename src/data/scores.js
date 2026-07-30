@@ -1,4 +1,4 @@
-import { SecondaryInfo } from "./settings";
+import { ScoreMode } from "./settings";
 import { getActiveRound, setActiveRound } from "./activeRound";
 import { getPlayerStats } from "./stats";
 
@@ -64,19 +64,81 @@ export function getSortValue(player, round) {
     const total = getTotal(player.scores);
     const stats = player.stats;
 
-    switch (round.roundSettings.playerInfo) {
-        case SecondaryInfo.TOTAL:
+    switch (round.roundSettings.scoreMode) {
+        case ScoreMode.TOTAL:
             return total;
 
-        case SecondaryInfo.TOTAL_HANDICAP:
+        case ScoreMode.TOTAL_HANDICAP:
             return total + player.handicap;
         
-        case SecondaryInfo.PERSONAL_BEST:
+        case ScoreMode.PERSONAL_BEST:
             if (!stats.bestRound) return Infinity;
             return total - getTotal(stats.bestRound, player.scores);
 
-        case SecondaryInfo.BEST_POSSIBLE:
+        case ScoreMode.BEST_POSSIBLE:
             if (!stats.bestScores.length) return Infinity;
             return total - getTotal(stats.bestScores, player.scores);
     }
+}
+
+export function getSecondaryText(player, round, scoreMode) {
+    const total = getTotal(player.scores);
+    const handicapTotal = total + player.handicap;
+
+    switch (scoreMode) {
+        case ScoreMode.TOTAL:
+            return `+${getScoreOffset(player.id, false)} (${total})`;
+        
+        case ScoreMode.TOTAL_HANDICAP:
+            return `+${getScoreOffset(player.id, true)} (${handicapTotal})`;
+        
+        case ScoreMode.PERSONAL_BEST: {
+            const stats = player.stats;
+
+            if (!stats.bestRound)
+                return "???";
+
+            const best = getTotal(
+                stats.bestRound,
+                player.scores
+            );
+
+            const diff = total - best;
+            const currentBest = stats.bestRound[round.currentHole - 1];
+
+            return `${formatDiff(diff)} (${total}) ★${currentBest}`;
+        }
+        
+        case ScoreMode.BEST_POSSIBLE: {
+            const stats = player.stats;
+
+            if (!stats.bestScores.length)
+                return "???";
+
+            const bestPossible = getTotal(
+                stats.bestScores,
+                player.scores
+            );
+
+            const diff = total - bestPossible;
+
+            const currentBest = stats.bestScores[round.currentHole - 1];
+            const star = currentBest != null ? `★${currentBest}` : "";
+
+            return `${formatDiff(diff)} (${total}) ${star}`;
+        }
+        
+        default:
+            return "";
+    }
+}
+
+function formatDiff(value) {
+    return value >= 0 ? `+${value}` : `${value}`;
+}
+
+export function checkScoresComplete(round) {
+    return round.players.every(player => 
+        player.scores.every(score => score !== 0)
+    );
 }
