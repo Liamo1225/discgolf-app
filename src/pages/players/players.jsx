@@ -1,24 +1,32 @@
-import "./players.css";
+import "./Players.css";
 
 import { useNavigate } from "react-router-dom";
 import { getPlayers } from "../../data/players";
-import { calcRoundsPlayedAll } from "../../data/stats";
+import { getHistory } from "../../data/history";
 
 import {
     ArrowLeft,
-    PersonFill,
-    PersonPlusFill,
-    ThreeDots
+    PersonPlusFill
 } from "react-bootstrap-icons";
+
+import Player from "./components/Player";
 
 export default function Players() {
     const navigate = useNavigate()
 
     const players = getPlayers();
-    const roundsPlayed = calcRoundsPlayedAll();
+    const history = getHistory();
+
+    const roundsPlayed = {};
+
+    history.forEach(round => {
+        round.players.forEach(player => 
+            roundsPlayed[player.id] = (roundsPlayed[player.id] || 0) + 1
+        );
+    });
 
     const sortedPlayer = players.sort(
-        (a, b) => roundsPlayed.get(b.id) - roundsPlayed.get(a.id));
+        (a, b) => roundsPlayed[b.id] - roundsPlayed[a.id]);
 
     return (
         <div className="players">
@@ -43,27 +51,10 @@ export default function Players() {
             <main className="player-list">
                 {
                     sortedPlayer.map((player) => (
-                        <div
+                        <Player
                             key={player.id}
-                            className="player"
-                            style={{ "--player-color": player.color}}
-                            >
-                                
-                            <div className="player-info">
-                                <PersonFill size={40} color={player.color} />
-                                <h2 className="player-name">{player.name}</h2>
-                            </div>
-
-                            <div className="player-right">
-                                <span className="rounds-played">{`Rounds: ${roundsPlayed.get(player.id) ?? 0}`}</span>
-                                <button
-                                    className="edit-btn"
-                                    onClick={() => {}}
-                                >
-                                    <ThreeDots size={30} />
-                                </button>
-                            </div>
-                        </div>
+                            player={player}
+                            roundsPlayed={roundsPlayed[player.id] || 0} />
                     ))
                 }
 

@@ -58,15 +58,3 @@ function calculatePlayerStats(playerId, courseId, layoutId) {
         bestScores
     };
 }
-
-export function calcRoundsPlayedAll() {
-    const result = new Map();
-
-    for (const round of getHistory()) {
-        for (const player of round.players) {
-            result.set(player.id, (result.get(player.id) ?? 0) + 1);
-        }
-    }
-
-    return result;
-}

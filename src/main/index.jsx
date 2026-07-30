@@ -7,7 +7,7 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename="/discgolf-app/">
+    <BrowserRouter basename="/discgolf-app">
       <ModalProvider>
         <App />
       </ModalProvider>

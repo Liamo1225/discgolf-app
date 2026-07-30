@@ -69,13 +69,16 @@
 
     .list-add-btn {
         height: 50px;
-        color: var(--text-color);
-        background-color: var(--new-player-color);
+        margin: 5px 20px;
+
         border: none;
         border-radius: 15px;
-        margin: 5px 20px;
+
         font-size: 1rem;
         font-weight: 500;
-        box-shadow: 2px 5px var(--box-shadow-color);
+
+        color: var(--text-color);
+        background-color: var(--new-player-color);
+        box-shadow: 2px 5px var(--box-shadow-color);       
     }
 }

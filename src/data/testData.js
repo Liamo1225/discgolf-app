@@ -17,23 +17,26 @@ export default function GenTestData() {
     players.push(addPlayer("Player4", "#d9bd08"));
     players.push(addPlayer("Player5", "#683406"));
 
-    const course = addCourse("Test Course");
-    const layout = addLayout(course.id, "Lay1", 1000, 9);
+    const course1 = addCourse("Test Course 1");
+    const course2 = addCourse("Test Course 2");
+    const layout1 = addLayout(course1.id, "Layout 1", 723, 9);
+    const layout2 = addLayout(course1.id, "Layout 2", 1431, 18);
 
-    genTestHistory(players, course, layout);
+    genTestHistory(players, course1, layout1, 3);
+    genTestHistory(players, course1, layout2, 1);
 
     const newSettings = {
         playerInfo: SecondaryInfo.BEST_POSSIBLE
     }
 
-    startRound(course, layout, players, newSettings);
+    startRound(course1, layout1, players, newSettings);
 }
 
-function genTestHistory(players, course, layout) {
+function genTestHistory(players, course, layout, rounds) {
     const createScores = (index) => 
         Array.from({ length: layout.holes }, (_, i) => 2 + (Math.round(Math.random() * 4)) + index);
 
-    for (let round = 0; round < 3; round++) {
+    for (let round = 0; round < rounds; round++) {
         addHistory({
             id: crypto.randomUUID(),
 
@@ -57,7 +60,7 @@ function genTestHistory(players, course, layout) {
             })),
 
             date: Date.now() - (3 - round) * 86400000,
-            durationMin: 60 + round * 3
+            durationMin: 60 + round * 10
         })
     }
 }
