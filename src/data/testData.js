@@ -11,19 +11,13 @@ export default function GenTestData() {
     clearPlayerStatsCache()
 
     const players = [];
-    players.push(addPlayer("Player1", "#057a14"));
-    players.push(addPlayer("Player2", "#ad0f78"));
-    players.push(addPlayer("Player3", "#0d078b"));
-    players.push(addPlayer("Player4", "#d9bd08"));
-    players.push(addPlayer("Player5", "#683406"));
+    players.push(addPlayer("Liam", "#057a14"));
+    players.push(addPlayer("Viggo", "#ad0f78"));
+    players.push(addPlayer("Seth", "#0d078b"));
+    players.push(addPlayer("Emanuel", "#d9bd08"));
 
-    const course1 = addCourse("Test Course 1");
-    const course2 = addCourse("Test Course 2");
-    const layout1 = addLayout(course1.id, "Layout 1", 723, 9);
-    const layout2 = addLayout(course1.id, "Layout 2", 1431, 18);
-
-    genTestHistory(players, course1, layout1, 3);
-    genTestHistory(players, course1, layout2, 1);
+    const course1 = addCourse("Skutberet");
+    const layout1 = addLayout(course1.id, "Full 18 hål", 1428, 18);
 
     const newSettings = {};
 
