@@ -1,0 +1,258 @@
+.new-round {
+  /* ----- varibles ----- */
+  --card-header-bg: #202938;
+  --card-content-bg: #151b26;
+  --card-border: #283345;
+
+  --start-btn-color: #2e4135;
+  --start-btn-active: #2c5b3b;
+  --start-btn-border: #416e52;
+
+  --course-bg: #202938;
+  --course-border: #323f57;
+
+  /* ----- general ----- */
+
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+
+  .list {
+    padding: 20px;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ----- cards ---- */
+
+  .selectcard {
+    overflow: hidden;
+    background-color: var(--card-header-bg);
+
+    border: 3px solid var(--card-border);
+    border-radius: 18px;
+
+    box-shadow: 3px 7px var(--box-shadow-color);
+    transition: transform 250ms ease;
+  }
+
+  .selectcard:nth-child(2) {
+    margin-top: 16px;
+  }
+
+  .expandable-seperator {
+    height: 16px;
+    flex: 1;
+  }
+
+  .selectcard:nth-child(4) {
+    margin-bottom: 16px;
+  }
+
+  .card-header {
+    position: relative;
+    width: 80%;
+
+    height: 75px;
+    padding: 18px 22px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    gap: 20px;
+
+    text-align: center;
+  }
+
+  .card-header h2 {
+    flex-shrink: 0;
+
+    margin: 0;
+
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    color: var(--text-color);
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-info h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    color: var(--secondary-text-color);
+  }
+
+  .header-btn {
+    position: absolute;
+    right: -50px;
+
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transform: translateX(10px) scale(0.9);
+
+    transition:
+      opacity 200ms ease,
+      transform 250ms ease;
+  }
+
+  .header-btn.expanded {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .card-content {
+    height: 0;
+
+    background-color: var(--card-content-bg);
+
+    overflow: hidden;
+    opacity: 0;
+
+    padding: 0 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    transition:
+      height 300ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 200ms ease,
+      padding 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-content.expanded {
+    height: 350px;
+    opacity: 1;
+    padding: 10px;
+  }
+
+  /* ----- course ----- */
+  .course-list {
+    width: 100%;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+
+  .list-end {
+    min-height: 25px;
+    fill: var(--secondary-text-color);
+  }
+
+  .course {
+    min-height: 60px;
+    width: 100%;
+
+    padding: 0 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-radius: 10px;
+    border: 3px solid var(--course-border);
+
+    background-color: var(--course-bg);
+    box-shadow: 3px 5px var(--box-shadow-color);
+  }
+
+  .course-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 5px;
+  }
+
+  .course-left h3 {
+    color: var(--text-color);
+  }
+
+  .course-left span {
+    color: var(--secondary-text-color);
+  }
+
+  .course-right {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 30px;
+  }
+
+  .info-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 5px;
+  }
+
+  .info-text span {
+    color: var(--secondary-text-color);
+  }
+
+  .info-num {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 5px;
+  }
+
+  .info-num span {
+    color: var(--text-color);
+  }
+
+  /* ----- players ----- */
+  /* ----- settings ----- */
+
+  /* ----- start btn ----- */
+  .start-round {
+    height: 62px;
+    margin: 10px 50px;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    border-radius: 20px;
+    border: 3px solid var(--start-btn-border);
+
+    background-color: var(--start-btn-color);
+    box-shadow: 3px 7px var(--box-shadow-color);
+
+    transition: background-color 200ms ease;
+  }
+
+  .start-round.active {
+    background-color: var(--start-btn-active);
+  }
+}

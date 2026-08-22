@@ -1,16 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { ModalProvider } from "../utils/modal/ModalContext.jsx";
+import Modal from "../modal/Modal";
 
-import App from "./App.jsx";
+import App from "./App";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter basename="/discgolf-app">
-      <ModalProvider>
+      <Modal>
         <App />
-      </ModalProvider>
+      </Modal>
     </BrowserRouter>
   </StrictMode>,
-)
+);

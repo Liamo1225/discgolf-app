@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: env(safe-area-inset-top) 15px 0;
+  height: calc(80px + env(safe-area-inset-top));
+
+  background-color: var(--header-color);
+  border-bottom: 5px solid var(--border-color);
+
+  text-align: center;
+}
+
+.header-left,
+.header-right {
+  width: 42px;
+  min-width: 42px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header p {
+  color: var(--secondary-text-color);
+}
+
+.btn {
+  background: none;
+  border: none;
+}

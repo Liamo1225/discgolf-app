@@ -1,151 +1,137 @@
 .home {
-     /* Menu spacing */
-    --menu-gap-color: #1a1a1a;
+  /* ----- varibles ----- */
+  --menu-gap-color: #1a1a1a;
 
-    /* Quadrant colors */
-    --players-color: #093058;
-    --history-color: #580d48;
-    --courses-color: #5e3e07;
-    --settings-color: #484848;
+  --players-color: #093058;
+  --history-color: #580d48;
+  --courses-color: #5e3e07;
+  --records-color: #484848;
 
-    /* Start button */
-    --start-color: #28642a;
+  --start-color: #28642a;
 
-    /* Sizes */
-    --quadrant-radius: 30px;
-    --center-radius: 35px;
+  --quadrant-radius: 30px;
+  --center-radius: 35px;
 
-    height: 100dvh;
+  /* ----- general ----- */
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+
+  .menu {
+    position: relative;
+
+    flex: 1;
+    margin: 20px;
+
+    overflow: hidden;
+
+    background-color: var(--menu-gap-color);
+  }
+
+  /* ----- corners btn ----- */
+
+  .quadrant {
+    position: absolute;
+
+    width: calc(50% - 12px);
+    height: calc(50% - 12px);
+
+    border: none;
+
     display: flex;
     flex-direction: column;
-    background-color: var(--background-color);
+    justify-content: center;
+    align-items: center;
 
-    .header {
-        justify-content: center;
-    }
+    gap: 10px;
 
-    .menu {
-        position: relative;
+    font-size: 1rem;
+    box-shadow: 3px 7px var(--box-shadow-color);
+  }
 
-        flex: 1;
-        margin: 20px;
+  .top-left {
+    top: 8px;
+    left: 8px;
 
-        overflow: hidden;
+    background-color: var(--players-color);
+    border-radius: var(--quadrant-radius) 0 0 0;
+  }
 
-        background-color: var(--menu-gap-color);
-    }
+  .top-right {
+    top: 8px;
+    right: 8px;
 
-    .quadrant {
-        position: absolute;
+    background-color: var(--history-color);
+    border-radius: 0 var(--quadrant-radius) 0 0;
+  }
 
-        width: calc(50% - 12px);
-        height: calc(50% - 12px);
+  .bottom-left {
+    bottom: 8px;
+    left: 8px;
 
-        border: none;
+    background-color: var(--courses-color);
+    border-radius: 0 0 0 var(--quadrant-radius);
+  }
 
-        cursor: pointer;
+  .bottom-right {
+    bottom: 8px;
+    right: 8px;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    background-color: var(--records-color);
+    border-radius: 0 0 var(--quadrant-radius) 0;
+  }
 
-        gap: 10px;
+  /* ----- Center btn ----- */
+  .start-btn {
+    position: absolute;
 
-        font-size: 1rem;
-        color: var(--text-color);
-        box-shadow: 3px 7px var(--box-shadow-color);
-    }
+    left: 50%;
+    top: 50%;
 
-    .top-left {
-        top: 8px;
-        left: 8px;
+    transform: translate(-50%, -50%);
 
-        background-color: var(--players-color);
-        border-radius: var(--quadrant-radius) 0 0 0;
-    }
+    width: 150px;
+    height: 150px;
 
-    .top-right {
-        top: 8px;
-        right: 8px;
+    border: none;
+    border-radius: var(--center-radius);
 
-        background-color: var(--history-color);
-        border-radius: 0 var(--quadrant-radius) 0 0;
-    }
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: var(--start-color);
 
-    .bottom-left {
-        bottom: 8px;
-        left: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-        background-color: var(--courses-color);
-        border-radius: 0 0 0 var(--quadrant-radius);
-    }
+    z-index: 5;
+    box-shadow: 0 0 0 8px var(--menu-gap-color);
+  }
 
-    .bottom-right {
-        bottom: 8px;
-        right: 8px;
+  /* ----- footer ----- */
+  .footer {
+    height: 90px;
 
-        background-color: var(--settings-color);
-        border-radius: 0 0 var(--quadrant-radius) 0;
-    }
+    border-top: 5px solid var(--border-color);
 
-    .quadrant, .start-btn span {
-        font-weight: 600;
-    }
+    background-color: var(--header-color);
 
-    .start-btn {
-        position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 
-        left: 50%;
-        top: 50%;
+  .stat {
+    text-align: center;
+  }
 
-        transform: translate(-50%, -50%);
+  .stat h2 {
+    margin-top: 4px;
+  }
 
-        width: 150px;
-        height: 150px;
-
-        border: none;
-        border-radius: var(--center-radius);
-
-        font-size: 1.2rem;
-        color: var(--text-color);
-
-        background-color: var(--start-color);
-        
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        cursor: pointer;
-        
-        z-index: 5;
-
-        box-shadow: 0 0 0 10px var(--menu-gap-color);
-    }
-
-    .footer {
-        height: 90px;
-
-        border-top: 5px solid var(--border-color);
-
-        background-color: var(--header-color);
-
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-
-    .stat {
-        text-align: center;
-    }
-
-    .stat h2 {
-        margin-top: 4px;
-    }
-
-    .stat p {
-        font-size: 0.9rem;
-        color: var(--secondary-text-color);
-    }
+  .stat p {
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+  }
 }

@@ -1,26 +1,32 @@
-import { useNavigate } from "react-router-dom";
+import { Header } from "../../components/Header";
+
 import "./Home.css";
 
-import HomeButtons from "./components/HomeButtons";
-import HomeStats from "./components/HomeStats";
+import HomeButtons from "./HomeButtons";
 
 export default function Home() {
-    const navigate = useNavigate();
+  const totalRounds = 0;
+  const lastRound = "?";
 
-    return (
-        <div className="home">
+  return (
+    <div className="home">
+      <Header title={"Discgolf App"} />
 
-            <header className="header">
-                <h1>Discgolf App</h1>
-            </header>
+      <main className="menu">
+        <HomeButtons />
+      </main>
 
-
-            <main className="menu">
-                <HomeButtons />
-            </main>
-
-            <HomeStats />
-
+      <footer className="footer">
+        <div className="stat">
+          <p>Games this year</p>
+          <h2>{totalRounds}</h2>
         </div>
-    );
+
+        <div className="stat">
+          <p>Last round</p>
+          <h2>{lastRound}</h2>
+        </div>
+      </footer>
+    </div>
+  );
 }

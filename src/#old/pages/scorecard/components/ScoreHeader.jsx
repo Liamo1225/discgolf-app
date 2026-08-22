@@ -28,9 +28,7 @@ export default function ScoreHeader({round}) {
                 <h1>{courseName}</h1>
                 <h2>{layoutName}</h2>
             </div>
-            
-
-
+        
             <button
                 className="settings-btn"
                 onClick={() => openModal(<ScorecardSettings />)}
