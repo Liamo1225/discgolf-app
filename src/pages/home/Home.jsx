@@ -18,7 +18,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="stat">
-          <p>Games this year</p>
+          <p>Rounds this year</p>
           <h2>{totalRounds}</h2>
         </div>
 

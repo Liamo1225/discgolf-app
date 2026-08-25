@@ -118,6 +118,7 @@ export default function CourseSelect({
           {sortedCourses.map((courseItem) => {
             const timesPlayed = 0;
             const lastPlayed = "?";
+            const layoutCount = courseItem.layouts.length;
 
             return (
               <Button
@@ -132,13 +133,15 @@ export default function CourseSelect({
               >
                 <div className="course-left">
                   <h3>{courseItem.name}</h3>
-                  <span>{`${courseItem.layouts?.length ?? 0} ${courseItem.layouts.length === 1 ? "layout" : "layouts"}`}</span>
+                  <span>
+                    {layoutCount} {layoutCount === 1 ? "layout" : "layouts"}
+                  </span>
                 </div>
 
                 <div className="course-right">
                   <div className="info-text">
-                    <span>Last: </span>
-                    <span>Rounds: </span>
+                    <span>Last:</span>
+                    <span>Rounds:</span>
                   </div>
                   <div className="info-num">
                     <span>{lastPlayed}</span>
