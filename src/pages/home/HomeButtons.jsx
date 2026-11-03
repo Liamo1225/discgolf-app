@@ -33,6 +33,7 @@ export default function HomeButtons() {
           {
             <>
               <Icon size={42} /> <span>{label}</span>
+              <div className="inner-border" />
             </>
           }
         </Button>
@@ -43,15 +44,15 @@ export default function HomeButtons() {
         onClick={() => navigate(ongoingRound ? "/scorecard" : "/newRound")}
       >
         {ongoingRound ? (
-          <>
+          <div className="start-middle">
             <ArrowRepeat size={50} />
             <span>Resume</span>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="start-middle">
             <PlayFill size={50} />
             <span>Start</span>
-          </>
+          </div>
         )}
       </Button>
     </>

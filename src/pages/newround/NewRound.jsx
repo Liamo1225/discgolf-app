@@ -25,7 +25,7 @@ export default function NewRound() {
   };
 
   const startRound = () => {
-    if (!course || players.length === 0) return;
+    /*if (!course || players.length === 0) return;*/
 
     //startRound from script
     navigate("/scorecard");
@@ -68,7 +68,7 @@ export default function NewRound() {
         />
 
         <Button
-          active={!!course && players.length > 0}
+          active={true} /*{!!course && players.length > 0}*/
           onClick={startRound}
           extraClass={"start-round"}
         >

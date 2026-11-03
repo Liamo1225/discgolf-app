@@ -7,10 +7,13 @@
   --courses-color: #5e3e07;
   --records-color: #484848;
 
-  --start-color: #28642a;
+  --players-border: #2a4384;
+  --history-border: #763579;
+  --courses-border: #83623b;
+  --records-border: #757575;
 
-  --quadrant-radius: 30px;
-  --center-radius: 35px;
+  --start-color: #28642a;
+  --start-border: #3e984c;
 
   /* ----- general ----- */
   height: 100dvh;
@@ -49,12 +52,28 @@
     box-shadow: 3px 7px var(--box-shadow-color);
   }
 
+  .inner-border {
+    position: absolute;
+
+    min-height: 113px;
+    min-width: 113px;
+  }
+
   .top-left {
     top: 8px;
     left: 8px;
 
     background-color: var(--players-color);
-    border-radius: var(--quadrant-radius) 0 0 0;
+    border: 3px solid var(--players-border);
+
+    .inner-border {
+      background-color: var(--players-border);
+
+      right: -2px;
+      bottom: -2px;
+
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
   }
 
   .top-right {
@@ -62,7 +81,16 @@
     right: 8px;
 
     background-color: var(--history-color);
-    border-radius: 0 var(--quadrant-radius) 0 0;
+    border: 3px solid var(--history-border);
+
+    .inner-border {
+      background-color: var(--history-border);
+
+      left: -2px;
+      bottom: -2px;
+
+      clip-path: polygon(0 100%, 100% 100%, 0 0);
+    }
   }
 
   .bottom-left {
@@ -70,7 +98,16 @@
     left: 8px;
 
     background-color: var(--courses-color);
-    border-radius: 0 0 0 var(--quadrant-radius);
+    border: 3px solid var(--courses-border);
+
+    .inner-border {
+      background-color: var(--courses-border);
+
+      right: -2px;
+      top: -2px;
+
+      clip-path: polygon(100% 100%, 100% 0, 0 0);
+    }
   }
 
   .bottom-right {
@@ -78,7 +115,16 @@
     right: 8px;
 
     background-color: var(--records-color);
-    border-radius: 0 0 var(--quadrant-radius) 0;
+    border: 3px solid var(--records-border);
+
+    .inner-border {
+      background-color: var(--records-border);
+
+      left: -2px;
+      top: -2px;
+
+      clip-path: polygon(0 100%, 0 0, 100% 0);
+    }
   }
 
   /* ----- Center btn ----- */
@@ -88,17 +134,18 @@
     left: 50%;
     top: 50%;
 
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(45deg);
 
     width: 150px;
     height: 150px;
 
     border: none;
-    border-radius: var(--center-radius);
 
     font-size: 1.2rem;
     font-weight: 600;
+
     background-color: var(--start-color);
+    border: 3px solid var(--start-border);
 
     display: flex;
     flex-direction: column;
@@ -106,7 +153,16 @@
     align-items: center;
 
     z-index: 5;
-    box-shadow: 0 0 0 8px var(--menu-gap-color);
+    box-shadow: 0 0 0 8px var(--box-shadow-color);
+
+    .start-middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      transform: rotate(-45deg);
+    }
   }
 
   /* ----- footer ----- */

@@ -1,53 +1,53 @@
 .scorecard {
-    --outer-color: #060422;
-    --inner-color: #262453;
+  --outer-color: #060422;
+  --inner-color: #262453;
 
-    --player-bg-color: #151416;
-    --player-border-color: #2e2e2e;
+  --player-bg-color: #151416;
+  --player-border-color: #2e2e2e;
 
-    --change-score-color: #b44d0d;
+  --change-score-color: #b44d0d;
 
-    height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .header button {
+    flex: 0 0 auto;
+    border: none;
+
+    color: var(--text-color);
+    background: none;
+  }
+
+  .header-name {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    text-align: center;
+  }
 
-    .header button {
-        flex: 0 0 auto;
-        border: none;
+  .header-name h1 {
+    font-size: clamp(1rem, 11.2rem, 1.8rem);
+  }
 
-        color: var(--text-color);
-        background: none;
-    }
+  .header-name h2 {
+    font-size: clamp(0.5rem, 5.8rem, 0.9rem);
+    color: var(--secondary-text-color);
+  }
 
-    .header-name {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-    }
+  .seperator {
+    min-height: 15px;
 
-    .header-name h1 {
-        font-size: clamp(1rem, 11.2rem, 1.8rem);
-    }
+    background-color: var(--header-color);
+    border-bottom: 5px solid var(--border-color);
+  }
 
-    .header-name h2 {
-        font-size: clamp(0.5rem, 5.8rem, 0.9rem);
-        color: var(--secondary-text-color);
-    }
+  .player-list {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
 
-    .seperator {
-        min-height: 15px;
-
-        background-color: var(--header-color);
-        border-bottom: 5px solid var(--border-color);
-    }
-
-    .player-list {
-        flex: 1;
-        overflow-y: auto;
-        min-height: 0;
-
-        background-color: var(--player-bg-color);
-        border: none;
-    }
+    background-color: var(--player-bg-color);
+    border: none;
+  }
 }

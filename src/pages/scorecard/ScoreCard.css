@@ -1,0 +1,119 @@
+.scorecard {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  --outer-color: #042213;
+  --inner-color: #245339;
+
+  --player-bg-color: #151416;
+  --player-border-color: #2e2e2e;
+
+  --change-score-color: #b44d0d;
+}
+
+.seperator {
+  min-height: 15px;
+
+  background-color: var(--header-color);
+  border-bottom: 5px solid var(--border-color);
+}
+
+.player-list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+
+  background-color: var(--player-bg-color);
+  border: none;
+}
+
+.hole-section {
+  padding: 100px 0 100px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 5px solid var(--border-color);
+  background-image: radial-gradient(var(--inner-color), var(--outer-color));
+}
+
+.hole-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transform: translateY(-15px);
+
+  width: 200px;
+}
+
+.hole-label {
+  font-size: 1.2rem;
+  color: var(--secondary-text-color);
+  text-align: center;
+}
+
+.hole-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hole-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 60px;
+  height: 50px;
+
+  transform: scale(0.2);
+
+  text-align: center;
+
+  font-size: 3rem;
+  font-weight: 500;
+
+  color: var(--secondary-text-color);
+  opacity: 0.25;
+
+  transition: all 0.25s ease;
+
+  margin: 0 -20px;
+}
+
+.hole-number.near {
+  opacity: 0.5;
+  transform: scale(0.5);
+  margin: 0 -10px;
+}
+
+.hole-number.active {
+  color: var(--text-color);
+  opacity: 1;
+  transform: scale(1);
+  margin: 0;
+}
+
+.hole-number.far {
+  opacity: 0;
+  width: 0;
+  transform: scale(0);
+  margin: 0;
+}
+
+.change-hole-btn {
+  background: none;
+  border: none;
+
+  color: var(--secondary-text-color);
+
+  transition: opacity 0.25s ease;
+}
+
+.hide {
+  opacity: 0;
+}
