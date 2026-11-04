@@ -1,7 +1,8 @@
 {
   "name": "Discgolf App",
-  "short_name": "Discgolf App",
-  "start_url": "/discgolf-app",
+  "short_name": "Discgolf",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
