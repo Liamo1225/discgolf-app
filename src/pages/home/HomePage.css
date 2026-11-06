@@ -1,0 +1,196 @@
+.home {
+  /* ----- Varibles ----- */
+  --menu-background-color: #1a1a1a;
+
+  --players-color: #093058;
+  --history-color: #580d48;
+  --courses-color: #5e3e07;
+  --records-color: #484848;
+
+  --players-border: #2a4384;
+  --history-border: #763579;
+  --courses-border: #83623b;
+  --records-border: #757575;
+
+  --start-color: #28642a;
+  --start-border: #3e984c;
+
+  /* ----- General ----- */
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+
+  .menu {
+    position: relative;
+
+    flex: 1;
+    padding: 20px;
+
+    overflow: hidden;
+
+    background-color: var(--menu-background-color);
+  }
+
+  /* ----- Corner btn ----- */
+  .quadrant {
+    position: absolute;
+
+    width: calc(50% - 32px);
+    height: calc(50% - 32px);
+
+    border: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 1rem;
+    box-shadow: 3px 7px var(--box-shadow-color);
+  }
+
+  .inner-border {
+    position: absolute;
+
+    min-height: 113px;
+    min-width: 113px;
+  }
+
+  .top-left {
+    top: 28px;
+    left: 28px;
+
+    background-color: var(--players-color);
+    border: 3px solid var(--players-border);
+    border-radius: 20px 0 0 0;
+
+    .inner-border {
+      background-color: var(--players-border);
+
+      right: -2px;
+      bottom: -2px;
+
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  .top-right {
+    top: 28px;
+    right: 28px;
+
+    background-color: var(--history-color);
+    border: 3px solid var(--history-border);
+    border-radius: 0 20px 0 0;
+
+    .inner-border {
+      background-color: var(--history-border);
+
+      left: -2px;
+      bottom: -2px;
+
+      clip-path: polygon(0 100%, 100% 100%, 0 0);
+    }
+  }
+
+  .bottom-left {
+    bottom: 28px;
+    left: 28px;
+
+    background-color: var(--courses-color);
+    border: 3px solid var(--courses-border);
+    border-radius: 0 0 0 20px;
+
+    .inner-border {
+      background-color: var(--courses-border);
+
+      right: -2px;
+      top: -2px;
+
+      clip-path: polygon(100% 100%, 100% 0, 0 0);
+    }
+  }
+
+  .bottom-right {
+    bottom: 28px;
+    right: 28px;
+
+    background-color: var(--records-color);
+    border: 3px solid var(--records-border);
+    border-radius: 0 0 20px 0;
+
+    .inner-border {
+      background-color: var(--records-border);
+
+      left: -2px;
+      top: -2px;
+
+      clip-path: polygon(0 100%, 0 0, 100% 0);
+    }
+  }
+
+  /* ----- Center btn ----- */
+  .play-btn {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%) rotate(45deg);
+
+    width: 150px;
+    height: 150px;
+
+    border: none;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    background-color: var(--start-color);
+    border: 3px solid var(--start-border);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 5;
+    box-shadow: 0 0 0 8px var(--box-shadow-color);
+
+    .play-middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      transform: rotate(-45deg);
+    }
+  }
+
+  /* ----- Footer ----- */
+  .footer {
+    height: 90px;
+
+    border-top: 5px solid var(--border-color);
+
+    background-color: var(--header-color);
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .stat {
+      text-align: center;
+
+      h2 {
+        margin-top: 4px;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: var(--secondary-text-color);
+      }
+    }
+  }
+}

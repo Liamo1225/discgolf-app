@@ -1,8 +1,61 @@
-* {
-  box-sizing: border-box;
+:root {
+  /* ----- Main colors */
+  --header-color: #292934;
+  --border-color: #0d0d0f;
+
+  /* Text */
+  --text-color: white;
+  --secondary-text-color: #878787;
+
+  --box-shadow-color: #000000a3;
 }
-body {
+
+/* ----- General ----- */
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
   margin: 0;
-  padding: 16px;
-  font-family: system-ui, sans-serif;
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--text-color);
+}
+
+body {
+  background-color: var(--header-color);
+  font-family: sans-serif;
+}
+
+/* ----- Header ----- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+
+  font-size: 2.2rem;
+  font-weight: 740;
+
+  padding-top: env(save-area-inset-top);
+
+  height: calc(80px + env(safe-area-inset-top));
+
+  background-color: var(--header-color);
+  border-bottom: 5px solid var(--border-color);
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
 }

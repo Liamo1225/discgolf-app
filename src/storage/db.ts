@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from "dexie";
-import type { Player, Course, Round } from "../types";
+import type { Player, Course, Round } from "../types/index";
 
 export const db = new Dexie("discgolf") as Dexie & {
   players: EntityTable<Player, "id">;

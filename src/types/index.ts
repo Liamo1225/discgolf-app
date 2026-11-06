@@ -39,22 +39,28 @@ export interface RoundSettings {
 export interface RoundPlayer {
   playerId: ID;
   name: string;
+  color: string;
   tpmUsed: number;
   extraThrows: number;
 }
 
 export interface Round {
   id: ID;
+
   date: number;
+  duration: number;
+
   courseId: ID;
   layoutId: ID;
   courseName: string;
   layoutName: string;
+
   holes: { holeId: ID; length: number }[];
-  status: "active" | "done";
-  duration: number;
   currentHole: number;
+
+  status: "active" | "done";
   settings: RoundSettings;
+
   players: RoundPlayer[];
   scores: Record<ID, (number | null)[]>;
 }
