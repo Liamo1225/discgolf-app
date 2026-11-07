@@ -3,13 +3,19 @@ export type ID = string;
 export interface Player {
   id: ID;
   name: string;
-  color: string;
+  color: `#${string}`;
   startTPM: number;
 }
 
 export interface Hole {
   id: ID;
   length: number;
+  altLenght?: number;
+}
+
+export interface Coords {
+  latitude: number;
+  longitude: number;
 }
 
 export interface Course {
@@ -17,6 +23,7 @@ export interface Course {
   name: string;
   holes: Hole[];
   layouts: Layout[];
+  location: Coords;
 }
 
 export interface Layout {
@@ -34,12 +41,13 @@ export type GameMode =
 export interface RoundSettings {
   mode: GameMode;
   secret: boolean;
+  length: "short" | "long";
 }
 
 export interface RoundPlayer {
-  playerId: ID;
+  id: ID;
   name: string;
-  color: string;
+  color: `#${string}`;
   tpmUsed: number;
   extraThrows: number;
 }

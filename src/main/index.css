@@ -1,11 +1,12 @@
 :root {
   /* ----- Main colors */
+  --background-inner: #343434;
+  --background-outer: #151515;
+
   --header-color: #292934;
   --border-color: #0d0d0f;
 
-  /* Text */
-  --text-color: white;
-  --secondary-text-color: #878787;
+  --text-color: #dbdbdb;
 
   --box-shadow-color: #000000a3;
 }
@@ -49,6 +50,11 @@ body {
 
   background-color: var(--header-color);
   border-bottom: 5px solid var(--border-color);
+
+  .header-slot {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 button {

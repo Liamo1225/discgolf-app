@@ -12,7 +12,7 @@ export default function Header({
   right?: ReactNode;
 }) {
   return (
-    <div className="header">
+    <header className="header">
       <div className="header-slot">{left}</div>
 
       <div className="header-center">
@@ -21,6 +21,6 @@ export default function Header({
       </div>
 
       <div className="header-slot">{right}</div>
-    </div>
+    </header>
   );
 }

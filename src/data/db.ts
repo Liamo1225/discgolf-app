@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from "dexie";
-import type { Player, Course, Round } from "../types/index";
+import type { Player, Course, Round } from "../types";
 
 export const db = new Dexie("discgolf") as Dexie & {
   players: EntityTable<Player, "id">;
@@ -8,9 +8,9 @@ export const db = new Dexie("discgolf") as Dexie & {
 };
 
 db.version(1).stores({
-  players: "id, name",
-  courses: "id, name",
-  rounds: "id, date, status, courseId, layoutId",
+  players: "id",
+  courses: "id",
+  rounds: "id",
 });
 
 export const newId = () => crypto.randomUUID();

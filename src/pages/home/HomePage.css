@@ -1,7 +1,5 @@
-.home {
+.homePage {
   /* ----- Varibles ----- */
-  --menu-background-color: #1a1a1a;
-
   --players-color: #093058;
   --history-color: #580d48;
   --courses-color: #5e3e07;
@@ -28,7 +26,11 @@
 
     overflow: hidden;
 
-    background-color: var(--menu-background-color);
+    background-image: radial-gradient(
+      circle,
+      var(--background-inner),
+      var(--background-outer)
+    );
   }
 
   /* ----- Corner btn ----- */
@@ -190,6 +192,7 @@
 
     .stat {
       text-align: center;
+      width: 100px;
 
       h2 {
         margin-top: 4px;
