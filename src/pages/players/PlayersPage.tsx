@@ -84,23 +84,23 @@ export default function PlayersPage() {
         }
       />
 
+      <div className="player-toolbar">
+        <span className="player-count">Players: {players.length}</span>
+
+        <button className="sort-btn" onClick={nextSort}>
+          <span>{sort}</span>
+          <ArrowDownUp size={18} />
+        </button>
+
+        <button
+          className={`reverse-btn ${reverse ? "reversed" : ""}`}
+          onClick={() => setReverse(!reverse)}
+        >
+          <CaretUpFill size={25} />
+        </button>
+      </div>
+
       <main className="player-list">
-        <div className="player-toolbar">
-          <span className="player-count">Players: {players.length}</span>
-
-          <button className="sort-btn" onClick={nextSort}>
-            <span>{sort}</span>
-            <ArrowDownUp size={18} />
-          </button>
-
-          <button
-            className={`reverse-btn ${reverse ? "reversed" : ""}`}
-            onClick={() => setReverse(!reverse)}
-          >
-            <CaretUpFill size={25} />
-          </button>
-        </div>
-
         {sorted.map((player) => (
           <PlayerRow
             key={player.id}
@@ -140,7 +140,7 @@ function PlayerRow({
         <h3 className="player-name">{player.name}</h3>
         <div className="player-stats">
           <span className="stat-label">TPM:</span>
-          <span className="stat-value">{Math.round(tpm)}</span>
+          <span className="stat-value">{tpm != 0 ? Math.round(tpm) : "-"}</span>
 
           <span className="stat-label">Rounds:</span>
           <span className="stat-value">{played}</span>
